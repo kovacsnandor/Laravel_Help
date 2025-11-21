@@ -28,6 +28,10 @@ Major.Minor.Patch:
 
 ## Help használata
 
+* **Ajánlott, általános CLI-hez:** ` ```bash ` vagy egyszerűen ` ``` `
+* **A konkrét példádhoz:** ` ```bash `
+
+
 - Összes parancs listája
 ```
 php artisan list
