@@ -1903,28 +1903,28 @@ public function indexSelf(Request $request)
 - Raktáros, Vásárló: get usersme, delete usersme, patch usersme
   - role módosítás tiltva
 
-Csak a user beállítások
 route/api.php
-
 ```php
+//region users
+//User kezelés, login, logout
 //Mindenki
 Route::post('users/login', [UserController::class, 'login']);
 Route::post('users/logout', [UserController::class, 'logout']);
 Route::post('users', [UserController::class, 'store']);
 
-//Admin:
+//Admin: 
 //minden user lekérdezése
 Route::get('users', [UserController::class, 'index'])
-    ->middleware('auth:sanctum', 'ability:*');
-//Egy user lekérése
+    ->middleware('auth:sanctum', 'ability:admin');
+//Egy user lekérése    
 Route::get('users/{id}', [UserController::class, 'show'])
-    ->middleware('auth:sanctum', 'ability:*');
-//User adatok módosítása
+    ->middleware('auth:sanctum', 'ability:admin');
+//User adatok módosítása      
 Route::patch('users/{id}', [UserController::class, 'update'])
-->middleware('auth:sanctum', 'ability:*');
+->middleware('auth:sanctum', 'ability:admin');
 //User törlés
 Route::delete('users/{id}', [UserController::class, 'destroy'])
-->middleware('auth:sanctum', 'ability:*');
+->middleware('auth:sanctum', 'ability:admin');  
 
 //User self (Amit a user önmagával csinálhat) parancsok
 Route::delete('usersme', [UserController::class, 'destroySelf'])
@@ -1934,7 +1934,88 @@ Route::patch('usersme', [UserController::class, 'updateSelf'])
 ->middleware('auth:sanctum', 'ability:usersme:patch');
 
 Route::get('usersme', [UserController::class, 'indexSelf'])
-    ->middleware('auth:sanctum', 'ability:usersme:get');
+    ->middleware('auth:sanctum', 'ability:usersme:get'); 
+//endregion
+
+//region products
+//Mindenki
+Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'show']);
+
+//Admin és Raktáros
+Route::post('products', [ProductController::class, 'store'])
+    ->middleware('auth:sanctum', 'ability:products:create');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])
+    ->middleware('auth:sanctum', 'ability:products:delete');
+Route::patch('products/{id}', [ProductController::class, 'update'])
+    ->middleware('auth:sanctum', 'ability:products:update');
+//endregion    
+```
+
+## Token és ability kiosztás
+
+app/Http/Controllers/UserController.php
+```php
+public function login(LoginUserRequest $request)
+{
+    //Eltároljuk az adatokat változókba
+    $email = $request->input(('email'));
+    $password = $request->input(('password'));
+
+    //Az email alapján megkeressük a usert
+    $user = User::where('email', $email)->first();
+
+    //Stimmel-e az email és a jelszó?
+    if (!$user || !Hash::check($password, $password ? $user->password : '')) {
+        return response()->json([
+            'message' => 'invalid email or password'
+        ], 401);
+    }
+
+    $expirationTime = Carbon::now()->addDays(1);
+    $role = $user->role;
+    $name = "1day-role:$role";
+    switch ($role) {
+        case 1:
+            //Admin
+            $abilities = ['*'];
+            break;
+        case 2:
+            //Raktáros
+            $abilities = [
+                'usersme:delete',
+                'usersme:patch',
+                'usersme:get',
+                'products:create',
+                'products:delete',
+                'products:update',
+            ];
+            break;
+        default:
+            //Vásárló
+            $abilities = [
+                'usersme:delete',
+                'usersme:patch',
+                'usersme:get',
+            ];
+            break;
+    }
+    //Token és ability kiadás (abiliy: personal_access_tokens tába ability mezőjébe kerül)
+    $user->token = $user->createToken(
+        $name,
+        $abilities,
+        $expirationTime
+    )->plainTextToken;
+
+    //visszaadjuk a usert, ami a tokent is tartalmazni fogja
+    $data = [
+        'message' => 'ok',
+        'data' => $user
+    ];
+    $status = 200;
+
+    return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+}
 
 ```
 
