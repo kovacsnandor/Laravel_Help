@@ -72,29 +72,50 @@ php artisan make:model --help
   - Migráció futtatása
 
 ### Egyéb migrációs parancsok:
-
-- `php artisan migrate:rollback`
-  - Az utolsó migrációs csomag visszavonása (down())
-- `php artisan migrate:rollback --step=1`
-  - Az utolsó migráció visszavonása (down())
-- `php artisan migrate:rollback --step=3`
-  - Az utolsó 3 migráció visszavonása (down())
-- `php artisan migrate:reset`
-  - Az összes migráció visszavonása
-- `php artisan migrate:refresh`
-  - Visszavonja az összes migrációt (down()) majd újra lefuttatja őket (up())
-- `php artisan migrate:refresh --seed`
-  - Visszavonja az összes migrációt majd újra lefuttatja őket és a seedereket
-- `php artisan migrate:fresh`
-  - Törli az összes táblát és újra migrál (nem fut a down)
-- `php artisan migrate:fresh --seed`
-  - Törli az összes táblát és újra migrál és a seedel
-- `php artisan migrate --path=database/migrations/2025_01_20_123456_create_products_table.php`
-  - Konkrét Migráció Futtatása (up())
-- `php artisan migrate:rollback --path=database/migrations/2025_01_20_123456_create_products_table.php`
-  - Konkrét Migráció Visszavonása (down())
-- `php artisan migrate:refresh --path=database/migrations/2025_01_20_123456_create_products_table.php`
-  - Konkrét Migráció Frissítése (Újraépítése) (down(), up())
+- Az utolsó migrációs csomag visszavonása (down())
+```console
+php artisan migrate:rollback
+```
+- Az utolsó migráció visszavonása (down())
+```console
+php artisan migrate:rollback --step=1
+```
+- Az utolsó 3 migráció visszavonása (down())
+```console
+php artisan migrate:rollback --step=3
+```
+- Az összes migráció visszavonása
+```console
+php artisan migrate:reset
+```
+- Visszavonja az összes migrációt (down()) majd újra lefuttatja őket (up())
+```console
+php artisan migrate:refresh
+```
+- Visszavonja az összes migrációt majd újra lefuttatja őket és a seedereket
+```console
+php artisan migrate:refresh --seed
+```
+- Törli az összes táblát és újra migrál (nem fut a down)
+```console
+php artisan migrate:fresh
+```
+- Törli az összes táblát és újra migrál és a seedel
+```console
+php artisan migrate:fresh --seed
+```
+- Konkrét Migráció Futtatása (up())
+```console
+php artisan migrate --path=database/migrations/2025_01_20_123456_create_products_table.php
+```
+- Konkrét Migráció Visszavonása (down())
+```console
+php artisan migrate:rollback --path=database/migrations/2025_01_20_123456_create_products_table.php
+```
+- Konkrét Migráció Frissítése (Újraépítése) (down(), up())
+```console
+php artisan migrate:refresh --path=database/migrations/2025_01_20_123456_create_products_table.php
+```
 
 ### Tábla módosítás
 
@@ -119,7 +140,7 @@ php artisan make:model --help
 
 Ajánlott parancs: `php artisan make:controller UserController --resource --model=User --requests`
 
-- A parancsok utólga is kiadhatók, a meglévő fájlokat nem törlik.
+- A parancsok utólag is kiadhatók, a meglévő fájlokat nem törlik.
 - A tábla nevet egyesszámban adjuk meg: **User**
 
 - `php artisan make:controller UserController`
