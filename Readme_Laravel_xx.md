@@ -978,7 +978,10 @@ A CORS egy olyan biztonsági mechanizmus, amely lehetővé teszi, hogy különb�
 Ha ezt nem állítanánk be, a kliens oldal nem férne hozzá az API erőforrásaihoz.
 A cors beállítások a http kérésre adott válasz fejlécében érkeznek, és ennek alapján befolyásolja a böngésző működését.
 
-- A cors beállítás létrehozása: `php artisan config:publish cors`
+- A cors beállítás létrehozása: 
+```console
+php artisan config:publish cors
+```
 - Létrejön egy **app/config/cors.php** fájl. Itt állíthatjuk be, hogy milyen **metódusokat**, illetve milyen **doménról** szolgálhat ki az API
 
 ```php
@@ -1638,8 +1641,7 @@ public function login(LoginUserRequest $request)
 }
 ```
 
-Token képzés
-
+### Token képzés logika
 - A token egy fix méretű egyedi véletleszerű sztring
 - Az abilities nem benne tárolódik, hanem
 - a **personal_access_tokens** tábla abilities (TEXT típusú) mezőjében
@@ -1647,23 +1649,19 @@ Token képzés
 - pl.: ['products:create','products:delete','products:update']
 - Az abilities kifejezés lehet nagyon hosszú is
 
-Sanctum Logika:
-
+### Sanctum Logika:
 - A Laravel Sanctum CheckAbilities middleware-je ellenőrzi, hogy
 - az érkező token rendelkezik-e a megadott képességgel (course:create).
 - A Rendszergazda tokenje tartalmazza a \* képességet, tehát mindent csinálhat.
 
-Abilities ellenőrzés működése:
-
+### Abilities ellenőrzés működése:
 - Amikor a Laravel találkozik az 'ability:course:delete' karaktersorozattal, azt kettéosztja:
 - Middleware Alias: ability (ami a CheckAbilities::class osztályra mutat).
 - Paraméter: products:delete (ez az, amit átad a CheckAbilities osztály handle metódusának).
 - A CheckAbilities middleware ezután megvizsgálja a bejelentkezett felhasználó tokenjét és megnézi, hogy az átadott paraméter (products:delete) szerepel-e a tokenjéhez rendelt képességek listájában.
 
 ## Jogosultság kiosztás
-
 - Adott user token kiosztásnál az abilities-ben felsoroltuk, hogy melyik táblával mit csinálhat: **táblanév:művelet** formában.
-
   - Raktáros: $abilities = ['products:create','products:delete','products:update'];
 
 - Az endpointoknál (ahol korlátozás van) az van megnevezve, hogy ő mit csinál
@@ -1672,7 +1670,6 @@ Abilities ellenőrzés működése:
 - A rendszergazda ['*'] ability-je pedig mindenre jogosít
 
 routes/api.php
-
 ```php
 //Mindenki
 Route::get('products', [ProductController::class, 'index']);
@@ -1688,10 +1685,8 @@ Route::patch('products/{id}', [ProductController::class, 'update'])
 ```
 
 ## Middleware regisztráció
-
-Hohoz hogy a sanctum felismerje az ability: bejegyzésket, regisztrálni kell.
+Ahoz, hogy a sanctum felismerje az ability: bejegyzéseket, regisztrálni kell.
 app/Providers/AppServiceProvider.php
-
 ```php
 namespace App\Providers;
 
@@ -1729,16 +1724,16 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 # User Profil konrollerek
-
-Olyan user kezelést kell megvalósítani hogy csak a bejelentkezett user:
-
+- Olyan user kezelést kell megvalósítani hogy csak a bejelentkezett user:
 - Módosíthasa saját jelszavát, profil adatait
 - Törölhesse magát
 - Módosíthassa a profil adatait: user név, email
-  A rendszergazda ne tudja saját role-ját megváltoztatni.
+  - A rendszergazda ne tudja saját role-ját megváltoztatni.
 
 1. Hozzunk létre egy User policy-t:
-   `php artisan make:policy UserPolicy --model=User`
+```console
+php artisan make:policy UserPolicy --model=User
+```
 
 app/Policies/UserPolicy.php
 
@@ -1857,18 +1852,14 @@ public function destroy(int $id)
 ```
 
 ## Policy regisztráció
-
 Ahhoz hogy a konrollerekben műkötethessük a policy hvásokat, regisztrálni kell Policy-t
 
 app/Providers/AppServiceProvider.php
-
 ```php
 // ...
-
 public function boot(): void
 {
     //...
-
     // Policy Regisztráció
     Gate::policy(User::class, UserPolicy::class);
 }
@@ -1878,12 +1869,13 @@ public function boot(): void
 Saját magunk role-ját ne tudjuk megváltoztatni
 
 1. készítsünk erre egy Request-et
-   `php artisan make:request UpdateUserSelfRequest`
+```console
+php artisan make:request UpdateUserSelfRequest
+```
 
 2. Zárjuk ki a role mezőt
 
 Http\Requests\UpdateUserSelfRequest.php
-
 ```php
 public function rules(): array
 {
@@ -1900,32 +1892,29 @@ public function rules(): array
 3. A UserControllerben a updateSelf(UpdateUserSelfRequest $request) paraméterbe tegyük be, hogy updateSelf esetén átfusson s rendszer a szabályon
 
 app/Http/Controllers/UserController.php
-
 ```php
-    public function destroySelf(Request $request)
-    {
-        //Kivesszük a törlendő user-t
-        $userToDestroy = $request->user();
-        // A Policy-t használjuk:
-        $this->authorize('delete', $userToDestroy);
-        // ... törlés logika
-        //A user tokenjeinek törlése
-        $userToDestroy->tokens()->delete();
-        //A user törlése
-        $userToDestroy->delete();
+public function destroySelf(Request $request)
+{
+    //Kivesszük a törlendő user-t
+    $userToDestroy = $request->user();
+    // A Policy-t használjuk:
+    $this->authorize('delete', $userToDestroy);
+    // ... törlés logika
+    //A user tokenjeinek törlése
+    $userToDestroy->tokens()->delete();
+    //A user törlése
+    $userToDestroy->delete();
 
-        $status = 404;
-        $data = [
-            'message' => "Sikeresen törölted a fiókodat",
-            'data' => null
-        ];
-        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
-    }
-
+    $status = 404;
+    $data = [
+        'message' => "Sikeresen törölted a fiókodat",
+        'data' => null
+    ];
+    return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+}
 
 public function updateSelf(UpdateUserSelfRequest $request)
 {
-
    //Kivesszük a módosítandó user-t
     $userToDestroy = $request->user();
     // A Policy-t használjuk:
@@ -1940,13 +1929,11 @@ public function updateSelf(UpdateUserSelfRequest $request)
             'data' => $userToDestroy
         ]
     ];
-
     return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
 }
 
 public function indexSelf(Request $request)
 {
-
     //Kivesszük a megmutatandó usert
     $userToDestroy = $request->user();
     // A Policy-t használjuk:
@@ -1959,16 +1946,11 @@ public function indexSelf(Request $request)
             'data' => $userToDestroy
         ]
     ];
-
     return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
 }
-
-
-
 ```
 
 ## User route beállítások
-
 - Bejelentkezés nélkül: login, logout, post user (regisztrálás)
 - Admin: get users, get users/id, patch users/id, delete users/id (bármelyik userrel bármit)
   - kivéve saját role-ját
@@ -2026,7 +2008,6 @@ Route::patch('products/{id}', [ProductController::class, 'update'])
 ```
 
 ## Token és ability kiosztás
-
 app/Http/Controllers/UserController.php
 ```php
 public function login(LoginUserRequest $request)
@@ -2089,13 +2070,11 @@ public function login(LoginUserRequest $request)
 
     return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
 }
-
 ```
 
 ## userme pingek
 
 request.rest
-
 ```rest
 ### User csak önmagát törölheti
 DELETE {{host}}/api/usersme
@@ -2138,7 +2117,6 @@ Authorization: Bearer {{token}}
 [Gemini beszélgetés](https://gemini.google.com/share/8449c8e12d2c)
 
 app/Http/Requests/UpdateUserSelfRequest.php
-
 ```php
  public function rules(): array
     {
@@ -2158,7 +2136,6 @@ app/Http/Requests/UpdateUserSelfRequest.php
             // Tiltott mező: Ha a role mező megérkezik a kérésben, a validáció elbukik.
             'role' => 'prohibited',
         ];
-
     }
 ```
 
@@ -2167,15 +2144,14 @@ app/Http/Requests/UpdateUserSelfRequest.php
 # Ütemezés
 
 # Tinker
-
 A tinker lhetővé teszik hogy prancssoról adjunk ki php parancsokat.
 Példa:
 
 - Adott user törlése artisan paranccsal (Tinker):
-  `php artisan tinker`
-  `$user = App\Models\User::find(1);`
-  `$user->tokens()->delete();`
-  `exit`
+`php artisan tinker`
+`$user = App\Models\User::find(1);`
+`$user->tokens()->delete();`
+`exit`
 
 # Egy tábla eltávolítása
 
@@ -2203,7 +2179,9 @@ Az eltávolítás lépései:
 3. Hozzunk létre egy tábla törlő módosító migrációt
 
 - Készísünk egy tábla törlő migrációt:
-  - `php artisan make:migration delete_produscts_table --table=products`
+```console
+php artisan make:migration delete_produscts_table --table=products
+```
 - Készítsük el törlés és az esetleges visszaállítás kódját (opcionális)
 
 ```php
@@ -2238,17 +2216,19 @@ public function up(): void
 ```
 
 - Futtassuk a migrációt, ami letörli fizikailag a táblát:
-  - `php artisan migrate --path=database/migrations/2025_01_20_123456_delete_produscts_table.php`
+```console
+php artisan migrate --path=database/migrations/2025_01_20_123456_delete_produscts_table.php
+```
 
 # Saját artisan parancs
-
 [Saját artisan parancs](https://gemini.google.com/share/66c64af2b6a8)
 
 1. Parancstároló osztály létrehozása:
-   `php artisan make:command CleanupProductResource`
+```console
+php artisan make:command CleanupProductResource
+```
 
-- Létrejön: **app\Console\Commands\CleanupProductResource.php**
-
+- Létrejön: **app\Console\Commands\CleanupProductResource.php**, megírjuk a kódját:
 ```php
 <?php
 
@@ -2364,7 +2344,9 @@ class CleanupProductResource extends Command
 ```
 
 A parancs futtatása a megadott alias (my_cleanup:resource) segítségével:
-`php artisan my_cleanup:resource Product`
+```console
+php artisan my_cleanup:resource Product
+```
 
 ## Visszavonás
 
@@ -2372,10 +2354,14 @@ A parancs futtatása a megadott alias (my_cleanup:resource) segítségével:
 2. lefuttatjuk a törlő rutint, Commitolunk
    Tegyük fel, hogy vissza akarjuk vonni, mert olyasmit törölt, amit nem akartunk
 3. Keressük meg a törlés utáni commit SHA-ját
-   `git log --oneline`
+```console
+git log --oneline
+```
 
 4. Állítsuk vissza az SHA alapján   
-`git revert a1b2c3f`
+```console
+git revert a1b2c3f
+```
 
 
 
