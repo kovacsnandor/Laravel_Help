@@ -28,7 +28,7 @@ Major.Minor.Patch:
 
 ## Help használata
 
-- `php artisan list`
+- ```php artisan list```
   - Összes parancs listája
 - `php artisan help make:model` vagy `php artisan make:model --help`
   - Help egy konkrét parancsról
