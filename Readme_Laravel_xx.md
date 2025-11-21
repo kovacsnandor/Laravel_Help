@@ -28,20 +28,18 @@ Major.Minor.Patch:
 
 ## Help használata
 - Összes parancs listája
-```bash
-php artisan list
-```
-```sh
-php artisan list
-```
 ```console
 php artisan list
 ```
-```js
-php artisan list
+- Help egy konkrét parancsról
+
+```console
+php artisan help make:model
 ```
-- `php artisan help make:model` vagy `php artisan make:model --help`
-  - Help egy konkrét parancsról
+vagy
+```console
+php artisan make:model --help
+```
 
 ## Laravel verzió lekérdezése
 
