@@ -72,105 +72,131 @@ php artisan make:model --help
   - Migráció futtatása
 
 ### Egyéb migrációs parancsok:
-- Az utolsó migrációs csomag visszavonása (down())
+- Az utolsó migrációs csomag visszavonása (down()):
 ```console
 php artisan migrate:rollback
 ```
-- Az utolsó migráció visszavonása (down())
+- Az utolsó migráció visszavonása (down()):
 ```console
 php artisan migrate:rollback --step=1
 ```
-- Az utolsó 3 migráció visszavonása (down())
+- Az utolsó 3 migráció visszavonása (down()):
 ```console
 php artisan migrate:rollback --step=3
 ```
-- Az összes migráció visszavonása
+- Az összes migráció visszavonása:
 ```console
 php artisan migrate:reset
 ```
-- Visszavonja az összes migrációt (down()) majd újra lefuttatja őket (up())
+- Visszavonja az összes migrációt (down()) majd újra lefuttatja őket (up()):
 ```console
 php artisan migrate:refresh
 ```
-- Visszavonja az összes migrációt majd újra lefuttatja őket és a seedereket
+- Visszavonja az összes migrációt majd újra lefuttatja őket és a seedereket:
 ```console
 php artisan migrate:refresh --seed
 ```
-- Törli az összes táblát és újra migrál (nem fut a down)
+- Törli az összes táblát és újra migrál (nem fut a down):
 ```console
 php artisan migrate:fresh
 ```
-- Törli az összes táblát és újra migrál és a seedel
+- Törli az összes táblát és újra migrál és a seedel:
 ```console
 php artisan migrate:fresh --seed
 ```
-- Konkrét Migráció Futtatása (up())
+- Konkrét Migráció Futtatása (up()):
 ```console
 php artisan migrate --path=database/migrations/2025_01_20_123456_create_products_table.php
 ```
-- Konkrét Migráció Visszavonása (down())
+- Konkrét Migráció Visszavonása (down()):
 ```console
 php artisan migrate:rollback --path=database/migrations/2025_01_20_123456_create_products_table.php
 ```
-- Konkrét Migráció Frissítése (Újraépítése) (down(), up())
+- Konkrét Migráció Frissítése (Újraépítése) (down(), up()):
 ```console
 php artisan migrate:refresh --path=database/migrations/2025_01_20_123456_create_products_table.php
 ```
 
 ### Tábla módosítás
-
-- `php artisan make:migration add_unique_index_to_produscts_name_column --table=products`
-  - Utólagos táblamódosítás migrációs fájl létrehozás
+- Utólagos táblamódosítás migrációs fájl létrehozás:
+```console
+php artisan make:migration add_unique_index_to_produscts_name_column --table=products
+```
 
 ## Seeder
-
-- `php artisan make:seeder UserSeeder`
-  - Seeder osztály készítés (UserSeeder osztály) (database/seeders/UserSeeder.php)
-- `php artisan db:seed`
-  - Seeder futtatása
-- `php artisan db:seed --class=ProductSeeder`
-  - Konkrét seeder osztály futtatása
+- Seeder osztály készítés (UserSeeder osztály) (database/seeders/UserSeeder.php):
+```console
+php artisan make:seeder UserSeeder
+```
+- Seeder futtatása:
+```console
+php artisan db:seed
+```
+- Konkrét seeder osztály futtatása:
+```console
+php artisan db:seed --class=ProductSeeder
+```
 
 ## Tábla CRUD parancs
-
-- `php artisan make:model Product -a --api`
-  - Egy tábla CRUD előkészítése (minden fájlt létrehoz)
+- Egy tábla CRUD előkészítése (minden fájlt létrehoz):
+```console
+php artisan make:model Product -a --api
+```
 
 ## Konroller készítő parancsok
-
-Ajánlott parancs: `php artisan make:controller UserController --resource --model=User --requests`
+Ajánlott parancs: 
+```console
+php artisan make:controller UserController --resource --model=User --requests
+```
 
 - A parancsok utólag is kiadhatók, a meglévő fájlokat nem törlik.
 - A tábla nevet egyesszámban adjuk meg: **User**
 
-- `php artisan make:controller UserController`
-  - app/Http/Controllers/UserController.php (nem hozza létre a metódusokat)
-- `php artisan make:controller UserController --resource`
-  - app/Http/Controllers/UserController.php és létrehozza a metódusokat (**--resource**)
-- `php artisan make:controller UserController --resource --model=User --requests`
+- app/Http/Controllers/UserController.php (nem hozza létre a metódusokat):
+```console
+php artisan make:controller UserController
+```
+- app/Http/Controllers/UserController.php és létrehozza a metódusokat (**--resource**):
+```console
+php artisan make:controller UserController --resource
+```
+- Komplex konroller paracs:
   - app/Http/Controllers/UserController.php (**make:controller**)
   - index, create stb metódusok (**--resource**)
   - Automatikusan "befűzi" (type-hinteli) a megadott modellt a vezérlő metódusaiba (**--model=User**)
   - app/Http/Requests/StoreUserRequest.php, UpdateUserRequest.php (**--requests**)
-- `php artisan make:model User -mcr --requests`
+```console
+php artisan make:controller UserController --resource --model=User --requests
+```
+- Komplex konroller paracs:
   - m: Létrehozza a migrációt (migration).
   - c: Létrehozza a kontrollert (controller).
   - r: A kontrollert resource (erőforrás) stílusban hozza létre.
   - --requests: Létrehozza a **StoreUserRequest** és **UpdateUserRequest** validációs osztályokat is!
+```console
+php artisan make:model User -mcr --requests
+```
 
 ## Request osztályok létrehozása
-
 - Store (post), és Udate (patch) műveltekhez szabályokat fogalmazhatunk meg bennük.
 - Szerkezetileg ugyanazok, csak a nevükben és a szabályokban különböznek.
-- `php artisan make:request StoreUserRequest`
-- `php artisan make:request UpdateUserRequest`
-- `php artisan make:request LoginUserRequest`
-  - Update, Store vagy speciális például Login osztály létrehozás
+- Update, Store vagy speciális például Login osztály létrehozás
+```console
+php artisan make:request StoreUserRequest
+```
+```console
+php artisan make:request UpdateUserRequest
+```
+```console
+php artisan make:request LoginUserRequest
+```
 
 ## cors
 
-- `php artisan config:publish cors`
-  - A cors beállítás létrehozása: **config/cors.php**
+- A cors beállítás létrehozása: **config/cors.php**:
+```console
+php artisan config:publish cors
+```
 
 # Laravel
 
@@ -180,11 +206,16 @@ Ajánlott parancs: `php artisan make:controller UserController --resource --mode
 
 # Laravel projekt létrehozás
 
-1. Laravel **laravel-rest-api** nevű (ez bármi lehet, ez lesz a projekt mappája) projekt létrehozása: `composer create-project laravel/laravel laravel-rest-api`
-
-   - **laravel-rest-api** lesz a projekt mappája
-   - Átmenni a **laravel-rest-api** mappába
-   - Ellenőrzés: `php artisan serve`
+1. Laravel **laravel-rest-api** nevű (ez bármi lehet, ez lesz a projekt mappája) projekt létrehozása: 
+```console
+composer create-project laravel/laravel laravel-rest-api
+```
+- **laravel-rest-api** lesz a projekt mappája
+- Átmenni a **laravel-rest-api** mappába
+- Ellenőrzés: 
+```console
+php artisan serve
+```
 
 2. Kapcsolódás az adatbázishoz: .env fájlban:
    Az adatbázis neve: laravel-rest-api
@@ -241,8 +272,10 @@ CREATE DATABASE `database`
 ```
 
 3. Az api támogatást le kell telepíteni:
-   `php artisan install:api`
-   A végén kérdezi, hogy letelepítse-e a táblákat: Enter (yes)
+    - A végén kérdezi, hogy letelepítse-e a táblákat: Enter (yes)
+```console
+php artisan install:api
+```
 
 !!!! Itt hibaüzenet van.
 A hiba oka: [karakterhossz hiba](https://gemini.google.com/share/01a06eea5bdf)
@@ -268,14 +301,20 @@ public function boot(): void
 ```
 
 - Migráció újrafuttatása:
-  `php artisan migrate:fresh`
-
+```console
+php artisan migrate:fresh
+```
 vagy
-`php artisan migrate:rollback`
-`php artisan migrate`
-
+```console
+php artisan migrate:rollback
+```
+```console
+php artisan migrate
+```
 vagy töröjük le az összes táblát az adatbázisban és Futtassuk le a migrációt:
-`php artisan migrate`
+```console
+php artisan migrate
+```
 
 Létrejönnek a táblák (egy csomó, velük együtt a **user**)
 
@@ -293,7 +332,11 @@ public function run(): void
 }
 ```
 
-Lefuttatjuk a seeder-t: `php artisan db:seed` és létrejön egy user
+Lefuttatjuk a seeder-t: 
+```console
+php artisan db:seed
+```
+és létrejön egy user
 
 5. Az api tesztelése
    routes/api.php
@@ -376,10 +419,10 @@ Authorization: Bearer {{token}}
 ```
 
 # Egy tábla CRUD
-
-Egy **product** nevű tábla esetén
-
-- `php artisan make:model Product -a --api`
+-Egy **products** nevű tábla esetén. Fontos: A parancsban **egyesszám**, és **nagybetűvel** kezdve
+```console
+php artisan make:model Product -a --api
+```
 - Létrehozza a kontrollert az össze metódussal, a modellt és a migrációs fájlt.
   - migrations\2025_11_01_191501_create_products_table.php
   - app\Models\product.php
