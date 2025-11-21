@@ -33,7 +33,7 @@ Major.Minor.Patch:
 
 
 - Összes parancs listája
-```
+```bash
 php artisan list
 ```
 - `php artisan help make:model` vagy `php artisan make:model --help`
