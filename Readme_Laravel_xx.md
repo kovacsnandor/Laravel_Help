@@ -1,4 +1,4 @@
-# Verzió: 1.2.0
+# Verzió: 1.2.1
 
 Szemantikus Verziózás (Semantic Versioning: SemVer), amely három szintet használ:
 Major.Minor.Patch:
@@ -1802,7 +1802,8 @@ public function boot(): void
 }
 ```
 
-## role változtatás kizárás
+## Role változtatás kizárás
+Saját magunk role-ját ne tudjuk megváltoztatni
 
 1. készítsünk erre egy Request-et
    `php artisan make:request UpdateUserSelfRequest`
