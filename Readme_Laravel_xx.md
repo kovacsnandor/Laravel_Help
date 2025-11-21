@@ -27,13 +27,17 @@ Major.Minor.Patch:
     - átadja a megadott parancsot (pl. make:model) feldolgozásra.
 
 ## Help használata
-
-* **Ajánlott, általános CLI-hez:** ` ```bash ` vagy egyszerűen ` ``` `
-* **A konkrét példádhoz:** ` ```bash `
-
-
 - Összes parancs listája
 ```bash
+php artisan list
+```
+```sh
+php artisan list
+```
+```console
+php artisan list
+```
+```js
 php artisan list
 ```
 - `php artisan help make:model` vagy `php artisan make:model --help`
