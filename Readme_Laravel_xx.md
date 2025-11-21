@@ -2086,7 +2086,7 @@ public function up(): void
 - Futtassuk a migrációt, ami letörli fizikailag a táblát:
   - `php artisan migrate --path=database/migrations/2025_01_20_123456_delete_produscts_table.php`
 
-# Saját artissan parancs
+# Saját artisan parancs
 
 [Saját artisan parancs](https://gemini.google.com/share/66c64af2b6a8)
 
