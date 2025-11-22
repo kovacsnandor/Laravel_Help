@@ -219,7 +219,6 @@ php artisan config:publish cors
 [Available Column Types](https://laravel.com/docs/11.x/migrations#available-column-types)
 
 # Laravel projekt létrehozás
-
 ## 1. Laravel telepítés
 Laravel **laravel-rest-api** nevű (ez bármi lehet, ez lesz a projekt mappája) projekt létrehozása: 
 ```console
@@ -231,7 +230,6 @@ composer create-project laravel/laravel laravel-rest-api
 ```console
 php artisan serve
 ```
-
 ## 2. .env adatbázis definíció
 Kapcsolódás az adatbázishoz: .env fájlban:
    Az adatbázis neve: laravel-rest-api
@@ -244,7 +242,7 @@ DB_DATABASE=laravel-rest-api
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-## 3. kódolás és InoDB motor
+## 3. kódolás és InoDB motor (config/database.php)
 2. Adatbázis kódolás beállítás (ez az alap, nem kell hozzányúlni):
    [Helyes adatbázis kódolás](https://gemini.google.com/share/4ef922c14e85)
 
@@ -263,7 +261,7 @@ CREATE DATABASE `database`
 	COLLATE utf8mb4_unicode_ci;
 ```
 
-Fontos!!! 'engine' => 'InnoDB', beállítás
+Fontos!!! 'engine' => 'InnoDB', beállítás  
 config/database.php
 ```php
 'mysql' => [
