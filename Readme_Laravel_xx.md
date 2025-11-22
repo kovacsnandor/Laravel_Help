@@ -152,7 +152,7 @@ php artisan db:seed --class=ProductSeeder
 ```
 
 ## Tábla CRUD parancs
-- Egy tábla CRUD előkészítése (minden fájlt létrehoz):
+- Egy tábla CRUD előkészítése (minden fájlt létrehoz) Fontos: **Egyesszám**, **Nagybetűvel** kezdve:
 ```console
 php artisan make:model Product -a --api
 ```
