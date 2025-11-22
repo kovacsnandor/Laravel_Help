@@ -2236,7 +2236,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Artisan; // Az Artisan parancsok futtatásához
+use Illuminate\Support\Facades\Artisan; 
+use Symfony\Component\Console\Output\BufferedOutput;// Az Artisan parancsok futtatásához
 
 class CleanupProductResource extends Command
 {
@@ -2269,6 +2270,8 @@ class CleanupProductResource extends Command
 
             $this->comment("Talált migrációs fájlok száma a(z) '{$lowerName}' erőforráshoz: " . \count($migrationFiles));
 
+            // Létrehozzuk a kimeneti puffert, hogy a rollback üzeneteit felfogjuk.
+            $outputBuffer = new BufferedOutput();
             // 2. Végigiterálás a fordított sorrendben rendezett tömbön
             foreach ($migrationFiles as $filePath) {
                 $fileName = basename($filePath);
@@ -2280,17 +2283,17 @@ class CleanupProductResource extends Command
                     // A rollbacket az egyedi fájlra kényszerítjük a --path segítségével
                     '--path' => 'database/migrations/' . $fileName,
                     '--force' => true
-                ], $this->output);
+                ], $outputBuffer);
 
                 $this->info("A(z) {$fileName} migráció visszavonva.");
 
                 if (file_exists($filePath)) {
                     // A fájl fizikai törlése a lemezről
                     $this->line("Törlöm a(z) {$fileName} migrációs fájlt...");
-                    
+
                     // A tényleges törlés
-                    unlink($filePath); 
-                    
+                    unlink($filePath);
+
                     $this->info("A(z) {$fileName} fájl sikeresen törölve.");
                 } else {
                     $this->warn("FIGYELEM: A(z) {$fileName} fájl nem található a törléshez, lehet, hogy már törölték.");
@@ -2350,7 +2353,6 @@ class CleanupProductResource extends Command
         $this->warn("1. Távolítsd el a '{$lowerName}' útvonalat a routes/api.php fájlból.");
         $this->warn("2. Ha használtál Policy-t, távolítsd el a Policy regisztrációt az App\Providers\AuthServiceProvider.php fájlból.");
         return self::SUCCESS;
-
     }
 }
 ```
@@ -2372,7 +2374,7 @@ git log --oneline
 
 4. Állítsuk vissza az SHA (Írjuk be a legutóbbi commit SHA kódját) alapján   
 ```console
-git revert <SHA> -m
+git revert <SHA> -m "A commit visszaállítása megtörtént"
 ```
 
 
