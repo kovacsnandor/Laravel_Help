@@ -43,33 +43,47 @@ php artisan make:model --help
 
 ## Laravel verzió lekérdezése
 
-- `php artisan --version`
-  - Csak a verziószám
-- `php artisan -v`
-  - Verziószám és parancslista
+- Csak a verziószám:
+```console
+php artisan --version
+```
+- Verziószám és parancslista:
+```console
+php artisan -v
+```
 
 ## Szerver indítás
 
-- `php artisan serve`
-  - Szerver indítás
-- `php artisan serve --port=8001`
-  - Szerver indítás adott porton
+- Szerver indítás:
+```console
+php artisan serve
+```
+- Szerver indítás adott porton:
+```console
+php artisan serve --port=8001
+```
 
 ## API telepítés
 
-- `php artisan install:api`
-  - Az api támogatást le kell telepíteni
+- Az api támogatást le kell telepíteni:
+```console
+php artisan install:api
+```
 
 ## Adatbázis létrehozás
 
-- `php artisan db:create`
-  - A .ini fájlban megadott adatbázis hozza létre
+- A .ini fájlban megadott adatbázis hozza létre:
+```console
+php artisan db:create
+```
   - A config/database.php-ben megadott kódolással
 
 ## Migráció
 
-- `php artisan migrate`
-  - Migráció futtatása
+- Migráció futtatása:
+```console
+php artisan migrate
+```
 
 ### Egyéb migrációs parancsok:
 - Az utolsó migrációs csomag visszavonása (down()):
