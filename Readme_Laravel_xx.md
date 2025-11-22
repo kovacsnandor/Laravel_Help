@@ -2370,9 +2370,9 @@ php artisan my_cleanup:resource Product
 git log --oneline
 ```
 
-4. Állítsuk vissza az SHA alapján   
+4. Állítsuk vissza az SHA (Írjuk be a legutóbbi commit SHA kódját) alapján   
 ```console
-git revert a1b2c3f
+git revert <SHA> -m
 ```
 
 
