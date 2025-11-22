@@ -220,7 +220,8 @@ php artisan config:publish cors
 
 # Laravel projekt létrehozás
 
-1. Laravel **laravel-rest-api** nevű (ez bármi lehet, ez lesz a projekt mappája) projekt létrehozása: 
+## 1. Laravel telepítés
+Laravel **laravel-rest-api** nevű (ez bármi lehet, ez lesz a projekt mappája) projekt létrehozása: 
 ```console
 composer create-project laravel/laravel laravel-rest-api
 ```
@@ -231,7 +232,8 @@ composer create-project laravel/laravel laravel-rest-api
 php artisan serve
 ```
 
-2. Kapcsolódás az adatbázishoz: .env fájlban:
+## 2. .env adatbázis definíció
+Kapcsolódás az adatbázishoz: .env fájlban:
    Az adatbázis neve: laravel-rest-api
 
 ```.env
@@ -242,7 +244,7 @@ DB_DATABASE=laravel-rest-api
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-
+## 3. kódolás és InoDB motor
 2. Adatbázis kódolás beállítás (ez az alap, nem kell hozzányúlni):
    [Helyes adatbázis kódolás](https://gemini.google.com/share/4ef922c14e85)
 
@@ -261,28 +263,28 @@ CREATE DATABASE `database`
 	COLLATE utf8mb4_unicode_ci;
 ```
 
-// config/database.php
-
+Fontos!!! 'engine' => 'InnoDB', beállítás
+config/database.php
 ```php
- 'mysql' => [
-            'driver' => 'mysql',
-            'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
-            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
+'mysql' => [
+        'driver' => 'mysql',
+        'url' => env('DB_URL'),
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => env('DB_PORT', '3306'),
+        'database' => env('DB_DATABASE', 'laravel'),
+        'username' => env('DB_USERNAME', 'root'),
+        'password' => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset' => env('DB_CHARSET', 'utf8mb4'),
+        'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'strict' => true,
+        'engine' => 'InnoDB',
+        'options' => extension_loaded('pdo_mysql') ? array_filter([
+            PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+        ]) : [],
+    ],
 ```
 
 3. Az api támogatást le kell telepíteni:
