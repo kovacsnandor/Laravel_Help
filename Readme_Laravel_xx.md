@@ -2283,6 +2283,18 @@ class CleanupProductResource extends Command
                 ], $this->output);
 
                 $this->info("A(z) {$fileName} migráció visszavonva.");
+
+                if (file_exists($filePath)) {
+                    // A fájl fizikai törlése a lemezről
+                    $this->line("Törlöm a(z) {$fileName} migrációs fájlt...");
+                    
+                    // A tényleges törlés
+                    unlink($filePath); 
+                    
+                    $this->info("A(z) {$fileName} fájl sikeresen törölve.");
+                } else {
+                    $this->warn("FIGYELEM: A(z) {$fileName} fájl nem található a törléshez, lehet, hogy már törölték.");
+                }
             }
 
             $this->info("A tábla ({$lowerName}s) összes kapcsolódó migrációja sikeresen visszavonva, a helyes sorrendben.");
