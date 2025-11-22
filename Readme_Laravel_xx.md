@@ -2153,7 +2153,7 @@ Példa:
 `$user->tokens()->delete();`
 `exit`
 
-# Egy tábla eltávolítása
+# Egy tábla "kézi" eltávolítása
 
 Néha fontos, hogy egy feleslegessé vált táblát eltávolítsunk a rendszerből.
 Nincs egyetlen olyan beépített Artisan parancs, mint a php artisan make:model Product -a --api (ami létrehoz mindent), amelyik automatikusan visszavonja az összes létrehozott fájlt (Modell, Controller, Migration, Factory, Seeder)
@@ -2220,7 +2220,18 @@ public function up(): void
 php artisan migrate --path=database/migrations/2025_01_20_123456_delete_produscts_table.php
 ```
 
-# Saját artisan parancs
+# Egy tábla "automatizált" eltávolítása
+- A tábla eltávolítása lényegében autoatizálható
+    - Osztályok törlése
+    - Tábla kapcsolatai, módosításai és fizikai törlése migrációinak törlésével
+- Ezt saját artisan paranccsal valósítunk meg
+- Ami nem automatizálható álatában:
+    - A tábla **routes/api.php** endpoinjait kézzel kell törölni.
+    - **database/seeders/DatabaseSeeder.php** beli Seeder hivatkozás
+- A verziókezelés miatt a törlés vissazvonható
+    - Annyit kell csak tenni, hogy a visszaállított migrációkat le kell futtatni.    
+
+## Saját artisan parancs
 [Saját artisan parancs](https://gemini.google.com/share/66c64af2b6a8)
 
 1. Parancstároló osztály létrehozása:
@@ -2351,7 +2362,8 @@ class CleanupProductResource extends Command
         $this->newLine();
         $this->warn('--- Kézi tisztítás szükséges! ---');
         $this->warn("1. Távolítsd el a '{$lowerName}' útvonalat a routes/api.php fájlból.");
-        $this->warn("2. Ha használtál Policy-t, távolítsd el a Policy regisztrációt az App\Providers\AuthServiceProvider.php fájlból.");
+        $this->warn("2. database/seeders/DatabaseSeeder.php beli Seeder hivatkozás, tábla törlő parancs kiszedése");
+        $this->warn("3. Ha használtál Policy-t, távolítsd el a Policy regisztrációt az App\Providers\AuthServiceProvider.php fájlból.");
         return self::SUCCESS;
     }
 }
