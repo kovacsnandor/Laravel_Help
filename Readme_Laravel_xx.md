@@ -2372,11 +2372,12 @@ php artisan my_cleanup:resource Product
 git log --oneline
 ```
 
-4. Állítsuk vissza az SHA (Írjuk be a legutóbbi commit SHA kódját) alapján   
+4. Állítsuk vissza az SHA (Írjuk be a legutóbbi commit SHA kódját) alapján. 
+- A -m után írt üzenet lesz az új commit üzenet
 ```console
 git revert <SHA> -m "A commit visszaállítása megtörtént"
 ```
-
+- Commitoljunk
 
 
 [jogrendszer](https://gemini.google.com/share/b51868a4aea4)
