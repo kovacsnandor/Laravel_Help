@@ -869,7 +869,7 @@ if (Product::count() === 0) {
 
 ```
 
-## Helper használata
+## Helper fájlok
 Bölcsebb megoldás ezt a függvényt újrahasznosíthatóvá tenni. 
 - Erre jók a helperek (segédeszközök, (számunkra hasznos függvények) ami bárhonnan elérhetők).
 - A helpereket az **app/Helpers** mappába tegyük
