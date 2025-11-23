@@ -840,7 +840,6 @@ if (Product::count() === 0) {
 ```
 - Memóriatakarékos kód
 database/seeders/ProductSeeder.php
-
 ```php
 //$data: Felöltés fájlból (database/csv/produts.csv)
 $fileName = 'csv\products.csv';
@@ -866,7 +865,6 @@ if (file_exists($filePath)) {
 if (Product::count() === 0) {
     Product::factory()->createMany($data);
 }
-
 ```
 
 ## Helper fájlok
@@ -926,15 +924,19 @@ class CsvReader
 ```
 
 ### Helper használata
-Ha bárhol használni szerenénk egy helper osztály függvényét:
+database/seeders/ProductSeeder.php
 ```php
 //usingolás (névtérrel)
 use App\Helpers\CsvReader;
-//...
 $fileName = 'csv\products.csv';
 $delimiter = ';';
+
 $data = CsvReader::csvToArray($fileName, $delimiter)
-//...
+
+if (Product::count() === 0) {
+    Product::factory()->createMany($data);
+}
+
 ```
 
 ## Faker könyvtár, factory használatával
