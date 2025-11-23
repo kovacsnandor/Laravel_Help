@@ -634,18 +634,21 @@ public function run(): void
 }
 ```
 
-Seederek indítása: database/seeders/DatabaseSeeder.php
-
+## Seederek elhelyezése, indítása: 
+- Minden tábla seederét klön osztályb helyezzük el!
+- Ezen osztályok run metódusába írjuk a seedelő kódot
+- A DatabaseSeeder run() metódusában a $this->call() metódusában soroljuk fel a futtatandó seeder osztályokat.
+- Ez a függvény egymás után meghívja ezen osztályok run() metódusait.
+- Lényeges ezek sorrendje a megszorítások miatt.
+database/seeders/DatabaseSeeder.php
 ```php
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-
     //Előtte érdemes a táblákat letörölni:
     DB::statement('DELETE FROM products');
     DB::statement('DELETE FROM users');
-
 
     public function run(): void
     {
@@ -926,17 +929,28 @@ class CsvReader
 ### Helper használata
 database/seeders/ProductSeeder.php
 ```php
-//usingolás (névtérrel)
+use Illuminate\Database\Seeder;
 use App\Helpers\CsvReader;
-$fileName = 'csv\products.csv';
-$delimiter = ';';
+use App\Models\Product;
 
-$data = CsvReader::csvToArray($fileName, $delimiter)
+class SportSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
 
-if (Product::count() === 0) {
-    Product::factory()->createMany($data);
+        $fileName = 'csv\products.csv';
+        $delimiter = ';';
+
+        $data = CsvReader::csvToArray($fileName, $delimiter);
+
+        if (Product::count() === 0) {
+            Product::factory()->createMany($data);
+        }
+    }
 }
-
 ```
 
 ## Faker könyvtár, factory használatával
