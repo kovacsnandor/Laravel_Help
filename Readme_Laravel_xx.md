@@ -796,6 +796,7 @@ Magyaros;Cseresznye;A falusi kincs;https://hur.webmania.cc/img/cseresznye.jpg;90
 Magyaros;Szilva;A falusi kincs;https://hur.webmania.cc/img/szilva.jpg;770;200
 ```
 
+- Memóriapazarló kód
 database/seeders/ProductSeeder.php
 
 ```php
@@ -837,6 +838,104 @@ if (Product::count() === 0) {
 }
 
 ```
+- Memóriatakarékos kód
+database/seeders/ProductSeeder.php
+
+```php
+//$data: Felöltés fájlból (database/csv/produts.csv)
+$fileName = 'csv\products.csv';
+$filePath = database_path(path: 'csv\products.csv');
+$data = [];
+if (file_exists($filePath)) {
+    if (($handle = fopen($filePath, 'r')) !== false) {
+        // 1. Beolvassuk a fejléceket (ha vannak)
+        $header = fgetcsv($handle, 0, ';');
+
+        // 2. Soronként beolvassuk az adatokat (0 azt jelenti, hogy nincs korlát a beolvasott sorra)
+        while (($cols = fgetcsv($handle, 0, ';')) !== false) {
+            if (count($header) === count($cols)) {
+                // Asszociatív tömb létrehozása (jobb olvashatóság!)
+                $data[] = array_combine($header, $cols);
+            }
+        }
+        // 3. Zárjuk a fájlt (itt kötelező!)
+        fclose($handle);
+    }
+}
+
+if (Product::count() === 0) {
+    Product::factory()->createMany($data);
+}
+
+```
+
+## Helper használata
+Bölcsebb megoldás ezt a függvényt újrahasznosíthatóvá tenni. 
+- Erre jók a helperek (segédeszközök, (számunkra hasznos függvények) ami bárhonnan elérhetők).
+- A helpereket az **app/Helpers** mappába tegyük
+- Mivel a helperek valójában valamilyen feladatot elvégző függvények
+    - Érdemes őket osztályokban elhelyezni
+    - És statikus tagként definikálni, hogy példányosítás nélkül használhassuk őket
+
+### Helper készítése
+1. Készíts egy **app/Helpers** mappát, ide helyezzük el a helper osztályokat
+2. Készíts bel egy **app/Helpers/CsvReader.php** fájlt
+3. Készítsd el alábbi osztály:
+    - Fontos, hogy megadd a névteret
+    - Fontos, hogy az osztály neve megegyezzen a fájl nevével
+    - Célszerűen statikus függvényt hozunk létre, ami elvégzi a beolvasást és visszadja a tömböt
+app/Helpers/CsvReader.php
+```php
+//Névtér: Ennek a segítségével fogjuk elérni
+namespace App\Helpers;
+
+use Illuminate\Support\Facades\File; // Ha a File Facade-et akarod használni a natív PHP helyett
+
+class CsvReader
+{
+    /**
+     * Beolvas egy CSV fájlt az adatbázis útvonalról és asszociatív tömbként adja vissza.
+     * * @param string $fileName Az elérési út a database_path() után (pl. 'csv/products.csv').
+     * @param string $delimiter Az oszlopelválasztó (alapértelmezett: ';').
+     * @return array Ha nincs ilyen fájl, akkor üres tömbbel tér vissza
+     */
+    public static function csvToArray(string $fileName, string $delimiter = ';'): array
+    {
+        $filePath = database_path(path: $fileName);
+        $data = [];
+
+        if (!File::exists($filePath)) {
+            return $data;
+        }
+
+        if (($handle = fopen($filePath, 'r')) !== false) {
+            $header = fgetcsv($handle, 0, $delimiter);
+
+            while (($cols = fgetcsv($handle, 0, $delimiter)) !== false) {
+                if ($header && count($header) === count($cols)) {
+                    $data[] = array_combine($header, $cols);
+                }
+            }
+            
+            fclose($handle);
+        }
+
+        return $data;
+    }
+}
+```
+
+### Helper használata
+Ha bárhol használni szerenénk egy helper osztály függvényét:
+```php
+//usingolás (névtérrel)
+use App\Helpers\CsvReader;
+//...
+$fileName = 'csv\products.csv';
+$delimiter = ';';
+$data = CsvReader::csvToArray($fileName, $delimiter)
+//...
+```
 
 ## Faker könyvtár, factory használatával
 
@@ -846,7 +945,6 @@ Ennek segítségével lehet véletlen neveket, számokat, városokat stb. gener�
 
 Az egész erre egyszerűsödik:
 database/seeders/ProductSeeder.php
-
 ```php
 //100 véletlen termék generálása
 Product::factory()->count(100)->create();
@@ -1022,11 +1120,6 @@ return [
 ];
 ```
 
-# Helper fájlok
-
-Elhelyezés: app/Helpers mappában.
-Használat: A helpers.php fájlban definiált függvényeket bárhonnan meghívhatod az alkalmazásban.
-Regisztrálás: A config/app.php fájlban az aliases tömbben kell regisztrálni a helper fájlt.
 
 # Hitelesítés
 
