@@ -214,15 +214,19 @@ php artisan make:request UpdateUserRequest
 php artisan make:request LoginUserRequest
 ```
 
-## ~ Cors
+## ~ Policy létrehozás
+- Hitelesítés kezeléséhez kell. Létrehjön: app/Policies/UserPolicy.php
+```console
+php artisan make:policy UserPolicy --model=User
+```
 
+## ~ Cors
 - A cors beállítás létrehozása: **config/cors.php**:
 ```console
 php artisan config:publish cors
 ```
 
 # Laravel
-
 [Laravel](https://laravel.com/)
 [Laravel readouble](https://readouble.com/laravel/11.x/en/)
 [Available Column Types](https://laravel.com/docs/11.x/migrations#available-column-types)
@@ -1819,7 +1823,7 @@ Route::patch('products/{id}', [ProductController::class, 'update'])
 ```
 
 ## Middleware regisztráció
-Ahoz, hogy a sanctum felismerje az ability: bejegyzéseket, regisztrálni kell.
+Ahhoz, hogy a sanctum felismerje az ability: bejegyzéseket, regisztrálni kell.
 app/Providers/AppServiceProvider.php
 ```php
 namespace App\Providers;
@@ -1848,11 +1852,19 @@ class AppServiceProvider extends ServiceProvider
             $message = $e->getMessage() ?? 'Access denied.';
             // Csak API kérésekre fusson le
             if ($request->is('api/*')) {
+                $message = $e->getMessage() ?? 'Access denied.';
+
+                if (str_contains($message, 'Invalid ability provided.')) {
+                    $message = 'Access denied.';
+                }
+
                 return response()->json([
                     'message' => $message
                 ], 403);
             }
         });
+        //Policy regisztráció
+        Gate::policy(User::class, UserPolicy::class);
     }
 }
 ```
