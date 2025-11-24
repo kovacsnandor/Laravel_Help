@@ -602,7 +602,6 @@ Megjegyzés: a **Schema::create** helyett itt már a **Schema::table** szerepel.
 2. Migráció futtatása: `php artisan migrate`
 
 # Seedelés
-
 A seedelés intézi el a táblák adatokkal való feltöltését.
 5 esetet szoktunk:
 
@@ -2510,7 +2509,7 @@ git log --oneline
 4. Állítsuk vissza az SHA (Írjuk be a legutóbbi commit SHA kódját) alapján. 
 - A -m után írt üzenet lesz az új commit üzenet
 ```console
-git revert <SHA> -m "A commit visszaállítása megtörtént"
+git revert <SHA>
 ```
 - Commitoljunk
 
