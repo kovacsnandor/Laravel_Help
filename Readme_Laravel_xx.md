@@ -52,7 +52,7 @@ php artisan --version
 php artisan -v
 ```
 
-## Szerver indítás
+## ~ Szerver indítás
 
 - Szerver indítás:
 ```console
@@ -63,14 +63,14 @@ php artisan serve
 php artisan serve --port=8001
 ```
 
-## API telepítés
+## ~ API telepítés
 
 - Az api támogatást le kell telepíteni:
 ```console
 php artisan install:api
 ```
 
-## Adatbázis létrehozás
+## ~ Adatbázis létrehozás
 
 - A .ini fájlban megadott adatbázis hozza létre:
 ```console
@@ -78,14 +78,14 @@ php artisan db:create
 ```
   - A config/database.php-ben megadott kódolással
 
-## Migráció
+## ~ Migráció
 
 - Migráció futtatása:
 ```console
 php artisan migrate
 ```
 
-### Egyéb migrációs parancsok:
+### ~ Egyéb migrációs parancsok:
 - Az utolsó migrációs csomag visszavonása (down()):
 ```console
 php artisan migrate:rollback
@@ -131,13 +131,13 @@ php artisan migrate:rollback --path=database/migrations/2025_01_20_123456_create
 php artisan migrate:refresh --path=database/migrations/2025_01_20_123456_create_products_table.php
 ```
 
-### Tábla módosítás
+### ~ Tábla módosítás
 - Utólagos táblamódosítás migrációs fájl létrehozás:
 ```console
 php artisan make:migration add_unique_index_to_produscts_name_column --table=products
 ```
 
-## Seeder
+## ~ Seeder
 - Seeder osztály készítés (UserSeeder osztály) (database/seeders/UserSeeder.php):
 ```console
 php artisan make:seeder UserSeeder
@@ -151,7 +151,7 @@ php artisan db:seed
 php artisan db:seed --class=ProductSeeder
 ```
 
-## Tábla CRUD parancs
+## ~ Tábla CRUD parancs
 - Egy tábla CRUD előkészítése (minden fájlt létrehoz) **!!!** Táblanév: **Egyesszám**, **Nagybetűvel** kezdve:
 ```console
 php artisan make:model Product -a --api
@@ -166,7 +166,7 @@ php artisan make:model Product -a --api
   - app\Http\Requests\UpdateproductRequest.php
   - app\Policies\ProductPolicy.php
 
-## Konroller készítő parancsok
+## ~ Konroller készítő parancsok
 Ajánlott parancs: 
 ```console
 php artisan make:controller UserController --resource --model=User --requests
@@ -200,7 +200,7 @@ php artisan make:controller UserController --resource --model=User --requests
 php artisan make:model User -mcr --requests
 ```
 
-## Request osztályok létrehozása
+## ~ Request osztályok létrehozása
 - Store (post), és Udate (patch) műveltekhez szabályokat fogalmazhatunk meg bennük.
 - Szerkezetileg ugyanazok, csak a nevükben és a szabályokban különböznek.
 - Update, Store vagy speciális például Login osztály létrehozás
@@ -214,7 +214,7 @@ php artisan make:request UpdateUserRequest
 php artisan make:request LoginUserRequest
 ```
 
-## cors
+## ~ Cors
 
 - A cors beállítás létrehozása: **config/cors.php**:
 ```console
