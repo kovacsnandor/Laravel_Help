@@ -26,7 +26,7 @@ Major.Minor.Patch:
     - elindítsa a console kernelt, majd
     - átadja a megadott parancsot (pl. make:model) feldolgozásra.
 
-## Help használata
+## ~ Help használata
 - Összes parancs listája
 ```console
 php artisan list
@@ -41,7 +41,7 @@ vagy
 php artisan make:model --help
 ```
 
-## Laravel verzió lekérdezése
+## ~ Laravel verzió lekérdezése
 
 - Csak a verziószám:
 ```console
@@ -156,6 +156,15 @@ php artisan db:seed --class=ProductSeeder
 ```console
 php artisan make:model Product -a --api
 ```
+- Létrehozza a kontrollert az össze metódussal, a modellt és a migrációs fájlt.
+  - migrations\2025_11_01_191501_create_products_table.php
+  - app\Models\product.php
+  - seeders\ProductSeeder.php
+  - database\factories\ProductFactory.php
+  - app\Http\Controllers\ProductController.php
+  - app\Http\Requests\StoreproductRequest.php
+  - app\Http\Requests\UpdateproductRequest.php
+  - app\Policies\ProductPolicy.php
 
 ## Konroller készítő parancsok
 Ajánlott parancs: 
@@ -493,6 +502,7 @@ public function up(): void
 }
 ```
 
+## A modell beállítása migrázió után
 A Modell-t is nézni kell:
 app\Models\product.php
 
@@ -528,6 +538,7 @@ app\Models\product.php
         'final_price'
     ];
 
+    //Automatikus adatkonverzió post, patch get esetén
     protected function casts(): array
     {
         return [
@@ -538,9 +549,10 @@ app\Models\product.php
     //...
 ```
 
+## Migráció
 Hozzuk létre a táblát: `php artisan migrate`
 
-## Egyéb migrációs parancsok:
+### Egyéb migrációs parancsok:
 
 Az utolsó migráció visszvonása: `php artisan migrate:rollback`
 Az utolsó migráció visszvonása: `php artisan migrate:rollback --step=1`
