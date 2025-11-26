@@ -1,3 +1,8 @@
+# Linkek
+[Laravel tesztelés](https://laravel.com/docs/master/http-tests)
+[Laravel adatbázis tesztelés](https://laravel.com/docs/master/database-testing)
+
+
 # Tesztelés
 ## Tesztelés alapfogalmak
 - Mi a Fehér dobozos tesztelés
@@ -154,4 +159,3 @@ class ProductApiTest extends TestCase
 }
 }
 ```
-
