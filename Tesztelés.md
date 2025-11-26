@@ -39,18 +39,18 @@ Az integrációs tesztelés a szoftverfejlesztés egyik kritikus fázisa, amelyn
 
 ## Teszt osztályok létrehozása
 ### Unit teszt létrehozása
+```console
+php artisan make:test DatabaseServiceTest --unit
+```
 - Létrehozza a **tests/Unit/DatabaseServiceTest.php** fájlt, ami egy **teszt osztály**.
     - A teszt osztály akármennyi **teszt metódust** (Ezt nevezzük **teszt**-nek) tartalmazhat
     - Ezek a metódusok futnak a tesztek során
     - Elvileg különböző osztályokban lehet ugyanolyan nevű teszt
     - Céljuk, hogy teszteljék az adott funkciót
     - Lefutásuk után közlik (a konzolon), hogy sikeres, vagy sikertelen volt-e a teszt és mutatják, hol a probléma
-```php
-php artisan make:test DatabaseServiceTest --unit
-```
 ### Funkcionális (Feature) teszt létrehozása
 - Létrehozza a **tests/Feature/ProductApiTest.php** fájlt.
-```php
+```console
 php artisan make:test ProductApiTest
 ```
 
@@ -161,6 +161,7 @@ class ProductApiTest extends TestCase
 ```
 
 # Főbb assert Kategóriák Laravelben
+A teszteléshez az ún. assert parancsolkat használjuk. Assert jelentése = állítani valamit. Ha ez ez állítás igaz, akkor a teszt jól lefutott.
 A Laravel tesztosztályok több nagy csoportra osztják az **assert** metódusokat.
 - HTTP Válasz Ellenőrzők
 - JSON Ellenőrzők
