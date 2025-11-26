@@ -33,6 +33,52 @@ A funkcionális tesztelés a szoftverfejlesztés egyik kritikus szakasza, amelyn
 Helye: **test/Feature** és a **test/Unit** mappa
 Az integrációs tesztelés a szoftverfejlesztés egyik kritikus fázisa, amelynek célja annak ellenőrzése, hogy **a különböző szoftvermodulok vagy alrendszerek megfelelően működnek-e együtt**. Ez a tesztelési típus az egységtesztelés után következik, és a rendszertesztelés előtt zajlik.
 
+# Adatbázis beállítása teszteléshez
+Ha a saját adatbázisunkon akarun ktesztelni ezt kell beállítani.
+## phpunit.xml
+```xml
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="BROADCAST_CONNECTION" value="null"/>
+        <env name="CACHE_STORE" value="array"/>
+
+        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
+        <env name="DB_CONNECTION" value="mysql"/>
+        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="NIGHTWATCH_ENABLED" value="false"/>
+    </php>
+
+```
+## .env.testing
+A tesztek az itt beállított adatbázison fognak futni.
+1. Hozzuk létre ezt a fájlt a .env lemásolásával
+2. Nevezzük át .env.testing névre.
+3. Ha ugyanazon az adatbáziskon tesztelünk, akkor kész.
+    - Ha nem, akkor írjuk be annak az adatbázisnak a nevét.
+
+
 # Tesztek létrehozása és futtatása laravel-ben
 - A Laravel alapértelmezetten a **PHPUnit** tesztelési keretrendszert használja, amely már a projekted **vendor** könyvtárában megtalálható.
 - A tesztelés teljes irányítása a **php artisan** parancsokkal történik.
