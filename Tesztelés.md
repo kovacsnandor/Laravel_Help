@@ -257,7 +257,7 @@ $this->assertFalse($user->isAdmin());
 ```php
 $this->assertEquals(5, count($items));
 ```
-- `assertCount(int $expectedCount, $haystack)`: llenőrzi egy tömb vagy gyűjtemény méretét
+- `assertCount(int $expectedCount, $haystack)`: Ellenőrzi egy tömb vagy gyűjtemény méretét
 ```php
 $this->assertCount(10, $products);
 ```
