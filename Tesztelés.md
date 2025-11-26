@@ -229,3 +229,47 @@ $response->assertJsonStructure(['data' => ['id', 'name']]);"
 $response->assertJsonCount(3, 'products');"
 ```
 
+# Adatbázis Ellenőrzők
+- `assertDatabaseHas(string $table, array $data)`: Ellenőrzi, hogy az adott táblában létezik-e a feltételeknek megfelelő sor.
+```php
+$this->assertDatabaseHas('products', ['name' => 'New Product']);
+```
+- `assertDatabaseMissing(string $table, array $data)`: Ellenőrzi, hogy az adott táblában nem létezik-e a feltételeknek megfelelő sor (pl. törlés után).
+```php
+$this->assertDatabaseMissing('users', ['id' => 1]);
+```
+- `assertDeleted($model, $table = null)`: Ellenőrzi, hogy egy modell példány törölve lett.
+```php
+$this->assertDeleted($user);"
+```
+
+# Általános PHPUnit Ellenőrzők
+A Laravel tesztjeid a PHPUnit alapvető ellenőrző metódusait is használhatják (ezek a TestCase osztálytól öröklődnek). Ezeket általában a belső logikák tesztelésére használják (Unit Tests).
+- `assertTrue($condition)`: Ellenőrzi, hogy egy feltétel igaz-e.
+```php
+$this->assertTrue(is_array($data));
+```
+- `assertFalse($condition)`: Ellenőrzi, hogy egy feltétel hamis-e.
+```php
+$this->assertFalse($user->isAdmin());
+```
+- `assertEquals($expected, $actual)`: Ellenőrzi, hogy két változó értéke azonos-e.
+```php
+$this->assertEquals(5, count($items));
+```
+- `assertCount(int $expectedCount, $haystack)`: llenőrzi egy tömb vagy gyűjtemény méretét
+```php
+$this->assertCount(10, $products);
+```
+- `assertNull($variable)`: Ellenőrzi, hogy egy változó null értékű-e.
+```php
+$this->assertNull($result);
+```
+- `assertNotNull($variable)`: Ellenőrzi, hogy egy változó nem null értékű-e.
+```php
+$this->assertNotNull($user->api_token);
+```
+- `assertInstanceOf($expected, $actual)`: Ellenőrzi, hogy egy objektum egy adott osztály példánya-e.
+```php
+$this->assertInstanceOf(User::class, $user);
+```
