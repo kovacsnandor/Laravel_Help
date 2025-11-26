@@ -161,12 +161,53 @@ class ProductApiTest extends TestCase
 ```
 
 # Főbb assert Kategóriák Laravelben
-A Laravel tesztosztályok két nagy csoportra osztják az **assert** metódusokat.
+A Laravel tesztosztályok több nagy csoportra osztják az **assert** metódusokat.
 - HTTP Válasz Ellenőrzők
 - JSON Ellenőrzők
+- Adatbázis Ellenőrzők
+- Általános PHPUnit Ellenőrzők
 
 ## HTTP Válasz Ellenőrzők
-Parancs,Leírás,Példa
+- Ezek a metódusok a 
+    - `this->get(...)` vagy 
+    - `this->postJson(...)` 
+    - hívások eredményeként kapott HTTP válasz ($response objektum) ellenőrzésére szolgálnak.
+
+- `assertStatus(int $code)`: Ellenőrzi a válasz HTTP státuszkódját (pl. 200, 201, 404).
+```php
+$response->assertStatus(200);
+```
+- `assertOk()`: Ellenőrzi, hogy a státusz 200 OK-e.
+```php
+$response->assertOk();
+```
+- `assertCreated()`: Ellenőrzi, hogy a státusz 201 Created-e.
+```php
+$response->assertCreated();
+```
+- `assertNotFound()`: Ellenőrzi, hogy a státusz 404 Not Found-e.
+```php
+$response->assertNotFound();
+```
+- `assertUnauthorized()`: Ellenőrzi, hogy a státusz 401 Unauthorized-e.
+```php
+$response->assertUnauthorized();
+```
+- `assertForbidden()`: Ellenőrzi, hogy a státusz 403 Forbidden-e.
+```php
+$response->assertForbidden();
+```
+- `assertRedirect(string $uri = null)`: Ellenőrzi, hogy a válasz átirányítás-e (301, 302).
+```php
+$response->assertRedirect('/login');
+```
+- `assertSessionHasErrors(array $keys = [])`: Ellenőrzi a validációs hibákat (API-nál jellemzően a 422 Unprocessable Entity válaszhoz kapcsolódik).
+```php
+$response->assertSessionHasErrors(['email', 'password']);
+```
+
+## JSON Ellenőrzők
+API fejlesztés során a válasz JSON tartalmának helyességét kell ellenőrizni.
 - `assertJson(array $data)`: Ellenőrzi, hogy a válasz tartalmazza a megadott JSON adatszerkezetet (részleges egyezés).
 ```php
 $response->assertJson(['name' => 'Laptop']);
@@ -187,5 +228,4 @@ $response->assertJsonStructure(['data' => ['id', 'name']]);"
 ```php
 $response->assertJsonCount(3, 'products');"
 ```
-    - 
-## JSON Ellenőrzők
+
