@@ -159,3 +159,33 @@ class ProductApiTest extends TestCase
 }
 }
 ```
+
+# Főbb assert Kategóriák Laravelben
+A Laravel tesztosztályok két nagy csoportra osztják az **assert** metódusokat.
+- HTTP Válasz Ellenőrzők
+- JSON Ellenőrzők
+
+## HTTP Válasz Ellenőrzők
+Parancs,Leírás,Példa
+- `assertJson(array $data)`: Ellenőrzi, hogy a válasz tartalmazza a megadott JSON adatszerkezetet (részleges egyezés).
+```php
+$response->assertJson(['name' => 'Laptop']);
+```
+- `assertJsonFragment(array $data)`: Ellenőrzi, hogy a válasz JSON-jének bármelyik része tartalmazza a megadott töredéket.
+```php
+$response->assertJsonFragment(['total' => 1000]);
+```
+- `assertExactJson(array $data)`: Ellenőrzi, hogy a válasz pontosan megegyezik a megadott JSON-nal."
+```ph
+$response->assertExactJson([...]);
+```
+- `assertJsonStructure(array $structure)`: Ellenőrzi, hogy a válasz JSON-je tartalmazza a megadott kulcsokat (szerkezet ellenőrzés).
+```php
+$response->assertJsonStructure(['data' => ['id', 'name']]);"
+```
+- `assertJsonCount(int $count, string $key = null)`: Ellenőrzi egy JSON tömb elemeinek számát.
+```php
+$response->assertJsonCount(3, 'products');"
+```
+    - 
+## JSON Ellenőrzők
