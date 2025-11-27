@@ -1080,10 +1080,22 @@ Laravel-ben a kontrollerekben három fő módon futtathatsz SQL lekérdezéseket
 1. Eloquent ORM (Ajánlott)
    Az Eloquent az adatok kezelésének Laravel-es módja. Feltételezi, hogy létrehoztad a megfelelő modellt a tábládhoz (pl. App\Models\Termek a termek táblához).
 
-- Összes termék: Termek::all();
-- Lekérdezés feltétellel: Termek::where('ar', '>', 5000)->get();
-- Egy elem: Termek::find(1);
-- Új tarmék: Termek::create(['megnevezes' => 'Laptop']);
+- Összes termék: 
+```php
+$termekek = Termek::all();
+```
+- Lekérdezés feltétellel: 
+```php
+$termekek = Termek::where('ar', '>', 5000)->get();
+```
+- Egy elem keresése id alapján: 
+```php
+$termek = Termek::find(1);
+```
+- Új tarmék (Az új termék objektum bekerül a `$termek` változóba): 
+```php
+$termek = Termek::create(['megnevezes' => 'Laptop']);
+```
 
 ### Query Builder
 
@@ -1091,10 +1103,22 @@ A Query Builder-t akkor használd, ha az Eloquent modellezés nem szükséges (p
 
 - Ehhez a DB Facade-ot (vagy a `use Illuminate\Support\Facades\DB`-t) kell használni.
 
-- MűveletQuery Builder KódÖsszes lekérdezése: DB::table('termek')->get();
-- Lekérdezés feltételekkel: DB::table('termek')->where('ar', 50000)->first();
-- Új bejegyzés: DB::table('termek')->insert(['megnevezes' => 'Monitor']);
-- Csoportosítás (GROUP BY): DB::table('termek')->select('darab')->groupBy('darab')->get();
+- MűveletQuery Builder KódÖsszes lekérdezése: 
+```php
+$termekek = DB::table('termek')->get();
+```
+- Lekérdezés feltételekkel: 
+```php
+$termekek = DB::table('termek')->where('ar', 50000)->first();
+```
+- Új bejegyzés: 
+```php
+$termek = DB::table('termek')->insert(['megnevezes' => 'Monitor']);
+```
+- Csoportosítás (GROUP BY): 
+```php
+$termekekSzama = DB::table('termek')->select('darab')->groupBy('darab')->get();
+```
 
 ### Nyers SQL
 
@@ -1102,16 +1126,17 @@ A Nyers SQL-t csak akkor használd, ha nincs más megoldás, mivel fennáll az S
 
 - Ehhez a DB Facade-ot (vagy a `use Illuminate\Support\Facades\DB`-t) kell használni.
 
-- MűveletNyers SQL KódLekérdezés (SELECT): DB::select('SELECT \* FROM users WHERE active = ?', [1]);
-- Beszúrás (INSERT): DB::insert('INSERT INTO users (id, name) VALUES (?, ?)', [1, 'Péter']);
-- Módosítás (UPDATE/DELETE): DB::update('UPDATE users SET name = "Kata" WHERE id = ?', [2]);
-
-## Kontrollerek
-
-app/Http/Controllers
-
+- MűveletNyers SQL KódLekérdezés (SELECT): 
 ```php
-
+$user = DB::select('SELECT \* FROM users WHERE active = ?', [1]);
+```
+- Beszúrás (INSERT): 
+```php
+$user = DB::insert('INSERT INTO users (id, name) VALUES (?, ?)', [1, 'Péter']);
+```
+- Módosítás (UPDATE/DELETE): 
+```php
+DB::update('UPDATE users SET name = "Kata" WHERE id = ?', [2]);
 ```
 
 # Cors kezelés

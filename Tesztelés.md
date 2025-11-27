@@ -34,8 +34,18 @@ Helye: **test/Feature** és a **test/Unit** mappa
 Az integrációs tesztelés a szoftverfejlesztés egyik kritikus fázisa, amelynek célja annak ellenőrzése, hogy **a különböző szoftvermodulok vagy alrendszerek megfelelően működnek-e együtt**. Ez a tesztelési típus az egységtesztelés után következik, és a rendszertesztelés előtt zajlik.
 
 # Adatbázis beállítása teszteléshez
-Ha a saját adatbázisunkon akarun ktesztelni ezt kell beállítani.
-## phpunit.xml
+Hogy a teszt futtatásakor mi legyen a környezet, például mi legyen a teszt adatbázis stb. két fájl határozza meg:
+- `phpunit.xml` (ennek a beállításai az **elsődlegesek**)
+- `.env.testing` (ezek a **másodlagosak**, de ami nincs a phpunit.xml-ben, azt .env.testing-ből olvassa be)
+- Egy jó stratégia: mindent üssünk ki a phpunit.xml-ből, amit a .env.testing-ből akarunk irányítani.
+    - például, hogy mi legyen a teszt futtatásakor a használt adatbázis
+## phpunit.xml javasolt beállítása
+Alapvetően ebben a fájlban definiáljuk a teszt kötnyezetet.
+- <env name="APP_ENV" value="testing"/>: az állítja be, hogy a teszteléhez használhatjuk a .env.testing fájlt, annak beállításait
+- Ezeket most azért vesszük ki, mert ezek felülírnák .env.testing-ben lévő ugyanilyen beállításokat:
+    <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
+    <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+
 ```xml
 
     <testsuites>
@@ -59,7 +69,6 @@ Ha a saját adatbázisunkon akarun ktesztelni ezt kell beállítani.
         <env name="CACHE_STORE" value="array"/>
 
         <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <env name="DB_CONNECTION" value="mysql"/>
         <!-- <env name="DB_DATABASE" value=":memory:"/> -->
 
         <env name="MAIL_MAILER" value="array"/>
@@ -72,11 +81,23 @@ Ha a saját adatbázisunkon akarun ktesztelni ezt kell beállítani.
 
 ```
 ## .env.testing
+Az egy jó stratégia, hogy a .env.testing beállításai adják a teszt környezetet.
 A tesztek az itt beállított adatbázison fognak futni.
-1. Hozzuk létre ezt a fájlt a .env lemásolásával
-2. Nevezzük át .env.testing névre.
+1. Hozzuk létre ezt a fájlt a `.env` lemásolásával
+2. Nevezzük át `.env.testing` névre.
 3. Ha ugyanazon az adatbáziskon tesztelünk, akkor kész.
     - Ha nem, akkor írjuk be annak az adatbázisnak a nevét.
+
+Most úgy állítottuk be, hogy a teszt esetén az éles adatbázisunkat használjuk: school
+.env.testing részlete
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=school
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
 
 # Tesztek létrehozása és futtatása laravel-ben
@@ -126,7 +147,10 @@ php artisan test --filter test_can_create_new_product
 php artisan test tests/Feature/ProductApiTest.php --filter test_can_create_new_product
 ```
 
-## Teszt metódusok névadási követelményei
+## Teszt névadási követelmények
+1. A teszt osztályoknak, fájlneveinek a **Test** szóval kell végződni: pl. `DatabaseTest`
+2. A teszt metódusoknak a test szóval kell kezdődnie: pl.: test_user_can_be_created()
+3. A teszt osztályok alapértelmezésben ABC sorrrendben futnak le.
 ### Prefix módszer (ez az ajánlott) 
 - A legfontosabb szabály, hogy egy teszt metódus neve a **test** szóval kezdődjön.
 - Ha egy metódus nem a test szóval kezdődik, az egy segédfüggvény, és nem futtatják a `php artisan test` parancsok.
@@ -203,6 +227,16 @@ class ProductApiTest extends TestCase
     // 2. Szülő hívása: Végleges keretrendszer tisztítás, mock-ok ellenőrzése
     parent::tearDown(); 
 }
+}
+```
+### Teszt átlépése, kiiktatása (skipped)
+```php
+public function test_this_one_is_too_slow()
+{
+    $this->markTestSkipped('Ideiglenesen kiiktatva, a teszt túl lassú.');
+
+    // Ez a kód már nem fog lefutni
+    // ... 
 }
 ```
 
