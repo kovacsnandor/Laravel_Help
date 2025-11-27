@@ -134,7 +134,7 @@ php artisan test --testsuite=Unit
 ```console
 php artisan test --testsuite=Feature
 ```
-- Egy teszt osztály összes tetjének futtatása
+- Egy teszt osztály összes tetszjének futtatása
 ```console
 php artisan test tests/Feature/ProductApiTest.php
 ```
@@ -310,7 +310,7 @@ $response->assertJsonStructure(['data' => ['id', 'name']]);"
 $response->assertJsonCount(3, 'products');"
 ```
 
-# Adatbázis Ellenőrzők
+## Adatbázis Ellenőrzők
 - `assertDatabaseHas(string $table, array $data)`: Ellenőrzi, hogy az adott táblában létezik-e a feltételeknek megfelelő sor.
 ```php
 $this->assertDatabaseHas('products', ['name' => 'New Product']);
@@ -324,7 +324,7 @@ $this->assertDatabaseMissing('users', ['id' => 1]);
 $this->assertDeleted($user);"
 ```
 
-# Általános PHPUnit Ellenőrzők
+## Általános PHPUnit Ellenőrzők
 A Laravel tesztjeid a PHPUnit alapvető ellenőrző metódusait is használhatják (ezek a TestCase osztálytól öröklődnek). Ezeket általában a belső logikák tesztelésére használják (Unit Tests).
 - `assertTrue($condition)`: Ellenőrzi, hogy egy feltétel igaz-e.
 ```php
@@ -353,4 +353,35 @@ $this->assertNotNull($user->api_token);
 - `assertInstanceOf($expected, $actual)`: Ellenőrzi, hogy egy objektum egy adott osztály példánya-e.
 ```php
 $this->assertInstanceOf(User::class, $user);
+```
+
+## Adatstruktúrák Assert Metódusai
+Ezek a metódusok tömbök és objektumok szerkezetének ellenőrzésére ideálisak.
+- `assertArrayHasKey($key, $array)`: Ellenőrzi, hogy a tömb tartalmazza-e a megadott kulcsot.
+```php
+$this->assertArrayHasKey('name', $userData);
+```
+- `assertArrayNotHasKey($key, $array)`: Ellenőrzi, hogy a tömb nem tartalmazza-e a kulcsot.
+```php
+$this->assertArrayNotHasKey('password', $responseArray);
+```
+- `assertContains($needle, $haystack)`: Ellenőrzi, hogy egy érték benne van-e a tömbben/gyűjteményben.
+```php
+$this->assertContains('admin', $userRoles);
+```
+- `assertCount($expectedCount, $arrayOrCollection)`: Ellenőrzi, hogy a tömb/gyűjtemény elemeinek száma megegyezik-e a várt értékkel.
+```php
+$this->assertCount(3, $cartItems);
+```
+- `assertIsArray($variable)`: Ellenőrzi, hogy a változó tömb-e.
+```php
+$this->assertIsArray($config);
+```
+- `assertIsString($variable)`: Ellenőrzi, hogy a változó string-e.
+```php
+$this->assertIsString($token);
+```
+- `assertInstanceOf($expectedClass, $actualObject)`: Ellenőrzi, hogy az objektum a megadott osztály egy példánya.
+```php
+$this->assertInstanceOf(User::class, $student);
 ```
