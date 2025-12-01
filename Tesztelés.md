@@ -104,7 +104,7 @@ DB_PASSWORD=
 - A Laravel alapértelmezetten a **PHPUnit** tesztelési keretrendszert használja, amely már a projekted **vendor** könyvtárában megtalálható.
 - A tesztelés teljes irányítása a **php artisan** parancsokkal történik.
 
-## Teszt osztályok létrehozása
+## ~ Teszt osztályok létrehozása
 - A teszt osztály akármennyi **teszt metódust** (Ezt nevezzük **teszt**-nek) tartalmazhat
 - Ezek a metódusok futnak a tesztek során
 - Elvileg különböző osztályokban lehet ugyanolyan nevű teszt
@@ -121,7 +121,7 @@ php artisan make:test ProductApiTest
 ```
 - Létrehozza a **tests/Feature/ProductApiTest.php** fájlt.
 
-## Tesztek futtatása konzolra
+## ~ Teszt futtatása konzolra
 A teszt eredményei megjelennek a konzolon.
 
 - Az összes teszt futtatása
@@ -149,7 +149,7 @@ php artisan test --filter test_can_create_new_product
 php artisan test tests/Feature/ProductApiTest.php --filter test_can_create_new_product
 ```
 
-## Teszt futtatása fájlba
+## ~ Teszt futtatása fájlba
 A teszt kimenetés különböző formátumú fájlba is irányíthatjuk a megfelelő artisan paranccsal
 
 - JUnit XML formátum:
