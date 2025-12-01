@@ -267,12 +267,48 @@ A Laravel tesztosztályok több nagy csoportra osztják az **assert** metódusok
 - Adatbázis Ellenőrzők
 - Általános PHPUnit Ellenőrzők
 
+## Általános PHPUnit Ellenőrzők
+A Laravel tesztjeid a PHPUnit alapvető ellenőrző metódusait is használhatják (ezek a TestCase osztálytól öröklődnek). Ezeket általában a belső logikák tesztelésére használják (Unit Tests).
+- `assertTrue($condition)`: Ellenőrzi, hogy egy feltétel igaz-e.
+```php
+$this->assertTrue(is_array($data));
+```
+- `assertFalse($condition)`: Ellenőrzi, hogy egy feltétel hamis-e.
+```php
+$this->assertFalse($user->isAdmin());
+```
+- `assertEquals($expected, $actual)`: Ellenőrzi, hogy két változó értéke azonos-e.
+```php
+$this->assertEquals(5, count($items));
+```
+- `assertCount(int $expectedCount, $haystack)`: Ellenőrzi egy tömb vagy gyűjtemény méretét
+```php
+$this->assertCount(10, $products);
+```
+- `assertNull($variable)`: Ellenőrzi, hogy egy változó null értékű-e.
+```php
+$this->assertNull($result);
+```
+- `assertNotNull($variable)`: Ellenőrzi, hogy egy változó nem null értékű-e.
+```php
+$this->assertNotNull($user->api_token);
+```
+- `assertInstanceOf($expected, $actual)`: Ellenőrzi, hogy egy objektum egy adott osztály példánya-e.
+```php
+$this->assertInstanceOf(User::class, $user);
+```
+
+
 ## HTTP Válasz Ellenőrzők
 - Ezek a metódusok a 
     - `this->get(...)` vagy 
     - `this->postJson(...)` 
     - hívások eredményeként kapott HTTP válasz ($response objektum) ellenőrzésére szolgálnak.
 
+- `assertSee('xxx');`: Ellenőrzi a válasz HTTP tartalmazza-e az 'xxx' szöveget.
+```php
+$response->assertSee('xxx');
+```
 - `assertStatus(int $code)`: Ellenőrzi a válasz HTTP státuszkódját (pl. 200, 201, 404).
 ```php
 $response->assertStatus(200);
@@ -343,36 +379,7 @@ $this->assertDatabaseMissing('users', ['id' => 1]);
 $this->assertDeleted($user);"
 ```
 
-## Általános PHPUnit Ellenőrzők
-A Laravel tesztjeid a PHPUnit alapvető ellenőrző metódusait is használhatják (ezek a TestCase osztálytól öröklődnek). Ezeket általában a belső logikák tesztelésére használják (Unit Tests).
-- `assertTrue($condition)`: Ellenőrzi, hogy egy feltétel igaz-e.
-```php
-$this->assertTrue(is_array($data));
-```
-- `assertFalse($condition)`: Ellenőrzi, hogy egy feltétel hamis-e.
-```php
-$this->assertFalse($user->isAdmin());
-```
-- `assertEquals($expected, $actual)`: Ellenőrzi, hogy két változó értéke azonos-e.
-```php
-$this->assertEquals(5, count($items));
-```
-- `assertCount(int $expectedCount, $haystack)`: Ellenőrzi egy tömb vagy gyűjtemény méretét
-```php
-$this->assertCount(10, $products);
-```
-- `assertNull($variable)`: Ellenőrzi, hogy egy változó null értékű-e.
-```php
-$this->assertNull($result);
-```
-- `assertNotNull($variable)`: Ellenőrzi, hogy egy változó nem null értékű-e.
-```php
-$this->assertNotNull($user->api_token);
-```
-- `assertInstanceOf($expected, $actual)`: Ellenőrzi, hogy egy objektum egy adott osztály példánya-e.
-```php
-$this->assertInstanceOf(User::class, $user);
-```
+
 
 ## Adatstruktúrák Assert Metódusai
 Ezek a metódusok tömbök és objektumok szerkezetének ellenőrzésére ideálisak.
