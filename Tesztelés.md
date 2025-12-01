@@ -121,7 +121,9 @@ php artisan make:test ProductApiTest
 ```
 - Létrehozza a **tests/Feature/ProductApiTest.php** fájlt.
 
-## Tesztek futtatása
+## Tesztek futtatása konzolra
+A teszt eredményei megjelennek a konzolon.
+
 - Az összes teszt futtatása
 ```console
 php artisan test
@@ -145,6 +147,23 @@ php artisan test --filter test_can_create_new_product
 - Egy osztály teszt metódusának futtatása
 ```console
 php artisan test tests/Feature/ProductApiTest.php --filter test_can_create_new_product
+```
+
+## Teszt futtatása fájlba
+A teszt kimenetés különböző formátumú fájlba is irányíthatjuk a megfelelő artisan paranccsal
+
+- JUnit XML formátum:
+```console
+php artisan test --log-junit test-results.xml
+```
+- Agile dokumentáció (TestDox) text:
+```console
+php artisan test --testdox-text test-results.txt
+```
+
+- Agile dokumentáció (TestDox) html:
+```console
+php artisan test --testdox-html test-results.html
 ```
 
 ## Teszt névadási követelmények
