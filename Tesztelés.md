@@ -104,18 +104,18 @@ DB_PASSWORD=
 - A Laravel alapértelmezetten a **PHPUnit** tesztelési keretrendszert használja, amely már a projekted **vendor** könyvtárában megtalálható.
 - A tesztelés teljes irányítása a **php artisan** parancsokkal történik.
 
-## ~ Teszt osztályok létrehozása
+## Teszt osztályok létrehozása
 - A teszt osztály akármennyi **teszt metódust** (Ezt nevezzük **teszt**-nek) tartalmazhat
 - Ezek a metódusok futnak a tesztek során
 - Elvileg különböző osztályokban lehet ugyanolyan nevű teszt
 - Céljuk, hogy teszteljék az adott funkciót
 - Lefutásuk után közlik (a konzolon), hogy sikeres, vagy sikertelen volt-e a teszt és mutatják, hol a probléma
-### Unit teszt létrehozása
+### ~ Unit teszt létrehozása
 ```console
 php artisan make:test DatabaseServiceTest --unit
 ```
 - Létrehozza a **tests/Unit/DatabaseServiceTest.php** fájlt, ami egy **teszt osztály**.
-### Funkcionális (Feature) teszt létrehozása
+### ~ Funkcionális (Feature) teszt létrehozása
 ```console
 php artisan make:test ProductApiTest
 ```
