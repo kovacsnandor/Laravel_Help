@@ -110,6 +110,22 @@ DB_PASSWORD=
 - Elvileg különböző osztályokban lehet ugyanolyan nevű teszt
 - Céljuk, hogy teszteljék az adott funkciót
 - Lefutásuk után közlik (a konzolon), hogy sikeres, vagy sikertelen volt-e a teszt és mutatják, hol a probléma
+
+### A laravel teszt osztályai
+A laravel tesztekhez használjuk a 
+- `Test\TestCase` könyvtárat a 
+- `PHPUnit\Framework\TestCase` helyett (ebben csak a legalapvetőbb asert függvények vannak). 
+
+```php
+// use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+
+class ExampleTest extends TestCase
+{
+    //...
+}    
+```
+
 ### ~ Unit teszt létrehozása
 ```console
 php artisan make:test DatabaseServiceTest --unit
