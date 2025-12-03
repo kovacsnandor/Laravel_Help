@@ -99,6 +99,21 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+## Tesztek Tranzakciókezeléssel
+Ahhoz,hogy a tesztek ne befolyásolják az adatokat a laravel automatikus tranzakciókezelést tesz lehetővé minden tesztosztályban
+```php
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
+
+class UserTest extends TestCase
+{
+    //Tranzakciókezelés bekapcsolása
+    use DatabaseTransactions;
+    //...
+}
+```
+
 
 # Tesztek létrehozása és futtatása laravel-ben
 - A Laravel alapértelmezetten a **PHPUnit** tesztelési keretrendszert használja, amely már a projekted **vendor** könyvtárában megtalálható.
