@@ -340,6 +340,12 @@ $this->assertInstanceOf(User::class, $user);
 ```php
 $response->assertSee('xxx');
 ```
+
+### Sikeresség ellenőrzés 2xx
+- `assertSuccessful()`: Sikeresség ellenőrzés általában (200 <= Státusz <= 299).
+```php
+$response->assertSuccessful(200);
+```
 - `assertStatus(int $code)`: Ellenőrzi a válasz HTTP státuszkódját (pl. 200, 201, 404).
 ```php
 $response->assertStatus(200);
@@ -352,6 +358,15 @@ $response->assertOk();
 ```php
 $response->assertCreated();
 ```
+
+### Sikertelenség ellenőrzés: 4xx, 5xx
+- 4xx vs. 5xx:
+    - **4xx** hibák oka, a **kliens**: vagy nincs joga, vagy nem küld tokent, vagy rossz a csomag, validáció stb.
+    - **5xx** hibák oka a **szerver**: Adatbázis, vagy kapcsolódási hiba stb.
+- `assertClientError()`: Ellenőrzi, hogy a válasz sikertelen: (400 <= Státusz <= 499)
+```php
+$response->assertClientError();
+```
 - `assertNotFound()`: Ellenőrzi, hogy a státusz 404 Not Found-e.
 ```php
 $response->assertNotFound();
@@ -360,10 +375,20 @@ $response->assertNotFound();
 ```php
 $response->assertUnauthorized();
 ```
-- `assertForbidden()`: Ellenőrzi, hogy a státusz 403 Forbidden-e.
+- `assertForbidden()`: Ellenőrzi, hogy a státusz 403 Forbidden-e (Erőforrás nem található).
 ```php
 $response->assertForbidden();
 ```
+- `assertUnprocessableEntity()`: Ellenőrzi, hogy a státusz 422 Validációs hiba.
+```php
+$response->assertUnprocessableEntity();
+```
+- `assertServerError()`: Bármely szerver oldali hiba (pl. PHP hiba, adatbázis probléma). (500 <= Státusz <= 599)
+```php
+$response->assertServerError();
+```
+
+### Egyéb hibák
 - `assertRedirect(string $uri = null)`: Ellenőrzi, hogy a válasz átirányítás-e (301, 302).
 ```php
 $response->assertRedirect('/login');
