@@ -344,7 +344,7 @@ $response->assertSee('xxx');
 ### Sikeresség ellenőrzés 2xx
 - `assertSuccessful()`: Sikeresség ellenőrzés általában (200 <= Státusz <= 299).
 ```php
-$response->assertSuccessful(200);
+$response->assertSuccessful();
 ```
 - `assertStatus(int $code)`: Ellenőrzi a válasz HTTP státuszkódját (pl. 200, 201, 404).
 ```php
