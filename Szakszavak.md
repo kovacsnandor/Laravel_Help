@@ -1,6 +1,6 @@
-osztály
-öröklés
-ciklus
+- osztály  
+- öröklés
+- ciklus
 feltételes elágazás
 asszociatív tömb
 kulcs-érték pár
