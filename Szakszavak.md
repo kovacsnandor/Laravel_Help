@@ -1,4 +1,4 @@
-osztály
+osztály  
 öröklés
 ciklus
 feltételes elágazás
