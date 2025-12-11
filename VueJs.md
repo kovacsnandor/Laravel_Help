@@ -40,3 +40,10 @@ npm run build
 ```console
 npm run preview
 ```
+
+# Fontos függőségek
+- vue: VueJs keretrendszer fejlesztőeszköz
+- vue-router: route kezelés
+- pinia: Állapot kezelés
+- bootstrap
+- bootstrap-icons
