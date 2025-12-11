@@ -21,7 +21,23 @@
         - Mondatszerű, szöveges
         - Struktorgram
         - Diagram
-        - Pszeudó nyelv    
+        - Pszeudó nyelv
+- Keretrendszer
+- Kliens oldali porgramozás
+- Kliens oldal
+- Szerver oldal
+- Szerver oldali programozás
+- API
+- Protokoll
+    - HTTP
+        - Fejléc
+        - Csomag
+        - Státuszkód
+    - HTTPS
+- Port
+- Szerver
+- Kliens
+
 
 # Változók kifejezések
 - Változó
