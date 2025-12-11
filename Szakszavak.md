@@ -1,24 +1,150 @@
-- osztály  
-- öröklés
-- ciklus
-- feltételes elágazás
-- asszociatív tömb
-- kulcs-érték pár
-- paraméter
-- függvény 
-- függvény neve
-- függvény típusa
-- típus
-- értékadás
-- változó
-- összehasonlítás >, <
-- kasztolás
-- statikus függvény
-- osbjektum szintű függvény
-- this
+# Általános
+- Implementáció
+- Program
+- Adat
+    - Adatszerkezet
+        - Halmaz
+        - Gyűjtemény
+        - Tömb
+        - Vektor
+- Compiler
+- Interpreter
+- Forráskód
+- Futtatható kód
+- Nyelv
+    - Programnyelv (c#, js, php)
+    - Lekérdező nyelv (sql)
+    - Formázó nyelv (css)
+    - Legíró (Markup) nyelv (html, xml)
+- Algoritmus
+    - Algoritmus leíró nyelvek
+        - Mondatszerű, szöveges
+        - Struktorgram
+        - Diagram
+        - Pszeudó nyelv    
 
-- Osztály
-    - Öröklés
-        - Ősosztály
-        - Gyerekosztály
-            - Az ősosztály kiterjesztése
+# Változók kifejezések
+- Változó
+- Deklaráció
+- Típus
+    - Típus konverzió
+        - Implicit
+        - Explicit
+        - Kasztolás
+- Értékadás
+- Kifejezés        
+- Konstans
+    - Literál, 
+        - string literál
+        - logikai literál
+        - szám literál
+        - stb.
+- Inkrementál
+- Dekrementál
+- Operátor
+    - Numerikus operátor
+    - Logikai operátor
+- Adatszerkezetek
+    - Numerikus tömb
+    - Asszociatív tömb (PHP)
+        - kulcs-érték pár
+    - Objektum (js)
+    - Objektumlista (js)
+    - json (js)        
+    - Lista (C#)
+    - Szótár (C#)
+    - index
+- Változók elnevezése
+    - Camel-case
+    - Puputeve    
+
+# Operátorok
+- Aritmetikai műveletek
+- Logikai műveletek
+- Kifejezés
+    - Logikai kifejezés
+    - Aritmetikai kifejezés
+- Operátorok (műveletek)
+    - Numerikus operátorok
+    - Logikai operátorok
+    - Operandus
+    - Egy operandusos
+    - Két operandusos
+    - Három operadusos 
+
+# Vezérlési szerkezetek
+- Elágazás
+    - Egymásba ágyazott
+    - switch
+    - elseif
+- Ciklus
+    - Elől tesztelő (while)
+    - Hátul tesztelő (do While)
+    - for
+    - foreach
+    - ciklusmag
+    - iterál
+    - ciklusváltozó
+    - inkrementál
+    - dekrementál
+
+# Függvény
+- Függvény típusa
+- Paraméter
+    - Aktuális paraméter
+    - Formális paraméter
+    - Paraméterátadás
+        - Érték szerinti paraméterátadás
+        - Cím szerinti paraméterátadás
+    - Alapértelmezett paraméter
+- A függvény törzse, magja
+- A változók hatóköre
+    - lokális
+    - globális
+    - blokk szintű
+- Túlterhelés
+- Szinkron függvény
+- Aszinkron függvény (js)
+
+# Osztály
+- Az osztály egy típus
+- Az osztály egy öntőforma
+- Példányosítás
+- Objektum, példány
+- Öröklés
+    - Ősosztály
+    - Gyerekosztály
+        - Az ősosztály kiterjesztése
+- Az osztály tagjai
+    - Mezők
+    - Tulajdonságok
+    - Kontruktor(ok)
+    - Metódusok
+- Absztrakt osztály
+    - Szerződés
+    - Megvalósítás
+- Statikus osztály
+- Statikus tag
+- Osztály szintű elérés
+- Objektum szintű elérés
+- this
+- Túlterhelés
+- Hatókör
+    - public
+    - internal
+    - private
+
+# Tesztelés
+- Fekete doboz
+- Fehér doboz
+- Tesztelés
+    - Kézi
+    - Statikus
+    - Dinamikus
+    - Fekete dobozos
+    - Fehér dobozoz
+- Teszt fajták
+    - Unit (egység) teszt
+    - Funkciolális teszt
+    - Integrációs teszt
+- Teszt piramis
