@@ -1,3 +1,23 @@
+# Linkek
+- [Vscode](https://code.visualstudio.com/)
+---
+- [Bootstrap](https://getbootstrap.com/)
+- [Bootstrap icons](https://icons.getbootstrap.com/)
+---
+- [Vite](https://vite.dev/)
+---
+- [VueJs](https://vuejs.org/)
+---
+- [Vue dev tools](https://github.com/vuejs/devtools)
+- [Vue dev tools Crome plugin](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+---
+- [Vue router](https://router.vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Cypress web test](https://www.cypress.io/#create)
+- [Cypress component test](https://docs.cypress.io/app/component-testing/get-started)
+- [Vue test utils](https://test-utils.vuejs.org/)
+- [Avesome VueJs](https://github.com/vuejs/awesome-vue?tab=readme-ov-file#official-resources)
+
 # Környezet telepítése
 branch: 01_adatkotes_data
 
@@ -49,30 +69,7 @@ npm run preview
 - bootstrap-icons
 
 # Webalkamazás felépítés
-## Belépési pont
-App.vue
-```vue
-<script setup></script>
-
-<template>
-  <!-- Head -->
-  <h1>Vue alkalmazás</h1>
-
-  <!-- Menü -->
-  <ul>
-    <li> <RouterLink to="/">Home</RouterLink> </li>
-    <li> <RouterLink to="/about">About</RouterLink> </li>
-  </ul>
-
-  <!-- Ide töltődnek be az oldalak -->
-   <RouterView/>
-   
-</template>
-
-<style scoped></style>
-```
-
-## Alakalmazás indító
+## Alakalmazás indító main.js
 main.js
 ```js
 import { createApp } from 'vue'
@@ -94,9 +91,7 @@ app.use(router)
 app.mount('#app')
 ```
 
-# Navigáció - router
-
-## App.vue: Az alakalmazás belépési pontja
+## Belépési pont: App.vue
 ```vue
 <template>
   <!-- Head -->
@@ -110,7 +105,6 @@ app.mount('#app')
 
   <!-- Ide töltődnek be az oldalak -->
    <RouterView/>
-   
 </template>
 
 ```
@@ -130,7 +124,7 @@ például: AboutView.vue
 </template>
 ```
 
-## Router
+## Router: route/index.js
 - Itt rendeljük össze a rout-okat az oldalakkal
 - Megoljuk a title kiírásokat
 - Megoldjuk a 404-es oldalt
