@@ -3,6 +3,7 @@
 ---
 - [Bootstrap](https://getbootstrap.com/)
 - [Bootstrap icons](https://icons.getbootstrap.com/)
+- [Favicon generátor](https://favicon.io/)
 ---
 - [Vite](https://vite.dev/)
 ---
@@ -20,6 +21,7 @@
 - [Cypress component test](https://docs.cypress.io/app/component-testing/get-started)
 - [Vue test utils](https://test-utils.vuejs.org/)
 - [Avesome VueJs](https://github.com/vuejs/awesome-vue?tab=readme-ov-file#official-resources)
+---
 
 # Környezet telepítése
 branch: 01_adatkotes_data
