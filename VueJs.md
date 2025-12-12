@@ -7,6 +7,9 @@
 - [Vite](https://vite.dev/)
 ---
 - [VueJs](https://vuejs.org/)
+- [VueJs W3 schools](https://www.w3schools.com/vue/index.php)
+- [VueJs examples](https://vuejs.org/examples/#cells)
+- [VueJs examples](https://vuejsexamples.com/)
 ---
 - [Vue dev tools](https://github.com/vuejs/devtools)
 - [Vue dev tools Crome plugin](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
