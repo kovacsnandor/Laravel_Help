@@ -94,26 +94,89 @@ app.use(router)
 app.mount('#app')
 ```
 
-## Weboldalak: views
-- Az alkalmazásunk weboldalai
-    - Ezek töltődnek be az App.vue <RouterView/> dobozába
-    - Helye a scc/views mappa
+# Navigáció - router
 
-például: About.vue
+## App.vue: Az alakalmazás belépési pontja
+```vue
+<template>
+  <!-- Head -->
+  <h1>Vue alkalmazás</h1>
+
+  <!-- Menü -->
+  <ul>
+    <li> <RouterLink to="/">Home</RouterLink> </li>
+    <li> <RouterLink to="/about">About</RouterLink> </li>
+  </ul>
+
+  <!-- Ide töltődnek be az oldalak -->
+   <RouterView/>
+   
+</template>
+
+```
+
+## Weboldalak: views
+- Az alkalmazásunk weboldalai a views mappában találhatók
+    - AboutView.vue, HomeView.vue
+    - Ezek töltődnek be az App.vue <RouterView/> dobozába
+    - Helyük a src/views mappa
+
+például: AboutView.vue
 ```vue
 <template>
   <div>
     <h1>About</h1>
   </div>
 </template>
+```
 
-<script>
-export default {
+## Router
+- Itt rendeljük össze a rout-okat az oldalakkal
+- Megoljuk a title kiírásokat
+- Megoldjuk a 404-es oldalt
 
-}
-</script>
+router/index.js
+```js
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
 
-<style></style>
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+      meta:{
+        title: (route) => 'Home'
+      }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/AboutView.vue'),
+      meta:{
+        title: (route) => 'About'
+      }
+    },
+    { path: "/:pathMatch(.*)*", 
+      name: "NotFound", 
+      component: () => import('@/views/404.vue'),
+      meta:{
+        title: (route) => '404'
+      }
+    },
+  ],
+})
+
+router.beforeEach((to,from, next) => {
+  //Az oldal címkéjébe töltsd be az adott route objektum meta kulcsán található függvény által visszaadott értéket
+  document.title = 'Valami - ' + to.meta.title(to);
+  //mehetsz tovább az oldalra
+  next();
+});
+
+export default router
 ```
 
 # Vujs Publikálás
