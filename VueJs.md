@@ -286,12 +286,38 @@ Ezeket a NODE_ENV környezeti változóba állítja ve a vite attól függően h
 - test (npm run test)
 üzemmódban indítottuk az alkalmazást
 
-Ezek értéke kiolvasható:
+NODE_ENV értékének kiolvasása
 ```js
+//Régi szintaxis
 if (process.env.NODE_ENV !== 'production') {
   console.log('Ez a napló csak fejlesztői módban látható.');
 }
+
+//modernebb szintaxis
+const mode = import.meta.env.MODE //'development' vagy 'production'
+const isDev = import.meta.env.DEV //true ha 'development'
+const isProd = import.meta.env.PROD //true ha 'production'
+const isSsr = import.meta.env.SSR //true ha a rendszer SSR-el működik
+
 ```
+### SSR, CSR
+A webfejelesztésben három féle megközelítést használhatunk
+1. A Server-Side Rendering (SSR)
+  - Az weboldalakat a server generálja, és html-t küld vissza
+    - Hátrány: jóval nagyobb a server terhelése
+    - Előny: Az első betöltődés gyors
+    - Előny: keresőbarátabb
+2. Client-Side Rendering (CSR)
+  - A bönésző megkapja a komplett webalkalmazást a megnyitáskor
+  - A webalkalmazás innentől kezdve a szervertől ajax kérésekkel csak azadatokat kéri a dinamikus tartalmakhoz
+    - Előny: kevés a szerver terhelése
+    - Hátrány: hosszabb az első betöltődés
+    - Hátrány: A kereső motorok nehezebben derítik fel
+3.  Hibrid Megoldások (SSG)
+  - Az SSR és CSR keverékét használja úgy hogy mindkettő előnyét próbálja optimálisan kihasználni.
+
+A VueJs alapban a CSR technológiát preferálja
+
 ### .env fájlok és rendszerváltozók
 - Célszerű saját rendszerváltozókat használni, amiket a **.env fájlokban** hozhatunk létre
 - .env fájlok:
