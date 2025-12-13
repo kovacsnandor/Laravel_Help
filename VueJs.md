@@ -1,14 +1,9 @@
 # Linkek
 - [Vscode](https://code.visualstudio.com/)
----
 - [Bootstrap](https://getbootstrap.com/) | [Bootstrap icons](https://icons.getbootstrap.com/) | [Favicon generátor](https://favicon.io/)
----
 - [Vite](https://vite.dev/) | [VueJs](https://vuejs.org/) | [VueJs W3 schools](https://www.w3schools.com/vue/index.php) | [Vue router](https://router.vuejs.org/) | [Pinia](https://pinia.vuejs.org/)
----
 - [VueJs examples 1](https://vuejs.org/examples/#cells) | [VueJs examples 2](https://vuejsexamples.com/) | [Avesome VueJs](https://github.com/vuejs/awesome-vue?tab=readme-ov-file#official-resources)
----
 - [Vue dev tools](https://github.com/vuejs/devtools) | [Vue dev tools Crome plugin](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
----
 - [Cypress web test](https://www.cypress.io/#create) | [Cypress component test](https://docs.cypress.io/app/component-testing/get-started) | [Vue test utils](https://test-utils.vuejs.org/)
 ---
 
