@@ -292,29 +292,40 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Ez a napló csak fejlesztői módban látható.');
 }
 ```
-### .env fájlok
-Célszerű saját rendszerváltozókat használni, amiket a .env fájlokban hozhatunk létre
-
-`.env`: Minden módban betöltődik
-`.env.development`t: dev módban töltődik be
-`.env.production`: éles környezet ben töltődik be.
+### .env fájlok és rendszerváltozók
+- Célszerű saját rendszerváltozókat használni, amiket a **.env fájlokban** hozhatunk létre
+- .env fájlok:
+  - `.env`: Minden módban betöltődik: itt adhatjuk meg az alkalmazásra vonatkozó általános dolgokat
+  - `.env.development`t: dev módban töltődik be
+  - `.env.production`: éles környezet ben töltődik be.
+- A .env fájlok rendszerváltozóinak névadási szabálya:  
+  - A VITE_ előtag kötelező, csak ezek olvashatók be a kódból
+  - A VITE_ előtaggal ellátott változók nyilvánosan elérhetők a böngészőben futó front-end kódban.
+  - A VITE_ előtag célja a nyilvánosság
+  - Ne használj VITE_ előtag nélküli változókat
 
 ### Példa env fájlokra
-.env: itt adhatjuk meg az alkalmazásra vonatkozó áltlános dolgokat
 Példa az alkalmazás címe, verziója stb.
 ```env
-APP_TITLE = Iskola webalkalmazás
-APP_VER = 3.7.2
+VITE_APP_TITLE = Iskola webalkalmazás
+VITE_APP_VER = 3.7.2
 ```
 
 .env.development: Az API címe fejlesztői módban
 ```env
-APP_API_URL = http://localhost:3000/api
+VITE_API_URL = http://localhost:3000/api
 ```
-
 .env.production: Az API címe produkciós környezetban
 ```env
-APP_API_URL = http://akarmi.com:3000/api
+VITE_API_URL = http://akarmi.com:3000/api
+```
+### Környezeti változók elérése
+Nem kell beírni, hogy melyik .env fájlból akarjuk beolvasni
+```js
+//.env-ből olvassa be
+const appTitle = import.meta.env.VITE_APP_TITLE;
+//.env.development, vagy .env.production-ból olvassa be
+const apiUrl = import.meta.env.VITE_API_URL;
 ```
 
 
