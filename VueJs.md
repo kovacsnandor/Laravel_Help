@@ -1,9 +1,7 @@
 # Linkek
 - [Vscode](https://code.visualstudio.com/)
 ---
-- [Bootstrap](https://getbootstrap.com/)
-- [Bootstrap icons](https://icons.getbootstrap.com/)
-- [Favicon generátor](https://favicon.io/)
+- [Bootstrap](https://getbootstrap.com/) | [Bootstrap icons](https://icons.getbootstrap.com/) | [Favicon generátor](https://favicon.io/)
 ---
 - [Vite](https://vite.dev/)
 ---
