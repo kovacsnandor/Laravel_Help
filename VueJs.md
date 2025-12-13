@@ -330,8 +330,8 @@ A VueJs alapban a CSR technológiát preferálja
   - A VITE_ előtag célja a nyilvánosság
   - Ne használj VITE_ előtag nélküli változókat
 
-### Példa env fájlokra
-Példa az alkalmazás címe, verziója stb.
+### Példa .env fájlokra
+.env: Az alkalmazás címe, verziója stb.
 ```env
 VITE_APP_TITLE = Iskola webalkalmazás
 VITE_APP_VER = 3.7.2
