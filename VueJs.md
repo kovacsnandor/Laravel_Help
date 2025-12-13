@@ -5,20 +5,15 @@
 ---
 - [Vite](https://vite.dev/)
 ---
-- [VueJs](https://vuejs.org/)
-- [VueJs W3 schools](https://www.w3schools.com/vue/index.php)
-- [VueJs examples](https://vuejs.org/examples/#cells)
-- [VueJs examples](https://vuejsexamples.com/)
+- [VueJs](https://vuejs.org/) | [VueJs W3 schools](https://www.w3schools.com/vue/index.php)
 ---
-- [Vue dev tools](https://github.com/vuejs/devtools)
-- [Vue dev tools Crome plugin](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+- [VueJs examples 1](https://vuejs.org/examples/#cells) | [VueJs examples 2](https://vuejsexamples.com/) | [Avesome VueJs](https://github.com/vuejs/awesome-vue?tab=readme-ov-file#official-resources)
 ---
-- [Vue router](https://router.vuejs.org/)
-- [Pinia](https://pinia.vuejs.org/)
-- [Cypress web test](https://www.cypress.io/#create)
-- [Cypress component test](https://docs.cypress.io/app/component-testing/get-started)
-- [Vue test utils](https://test-utils.vuejs.org/)
-- [Avesome VueJs](https://github.com/vuejs/awesome-vue?tab=readme-ov-file#official-resources)
+- [Vue dev tools](https://github.com/vuejs/devtools) | [Vue dev tools Crome plugin](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+---
+- [Vue router](https://router.vuejs.org/) | [Pinia](https://pinia.vuejs.org/)
+---
+- [Cypress web test](https://www.cypress.io/#create) | [Cypress component test](https://docs.cypress.io/app/component-testing/get-started) | [Vue test utils](https://test-utils.vuejs.org/)
 ---
 
 # Környezet telepítése
