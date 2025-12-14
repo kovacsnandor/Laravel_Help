@@ -236,42 +236,40 @@ http.conf: Engedélyezve legyen a mod_rewrite modul
 LoadModule rewrite_module modules/mod_rewrite.so
 ```
 
-## Fordítás
-- Alias útvonal beállítás: @/ -> src mappa
-- 
+## Fordítás: vite.config.js
 vite.config.js
 ```js
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig, loadEnv } from "vite"; // loadEnv importálása
+import vue from "@vitejs/plugin-vue";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+// A konfigurációt már nem objektumként, hanem függvényként exportáljuk.
+export default defineConfig(({ mode }) => {
+  // 1. Környezeti Változók Betöltése
+  // A Vite API-t használjuk a mode és az aktuális mappa alapján.
+  // Csak a 'VITE_' kezdetű változókat töltjük be.
+  const env = loadEnv(mode, process.cwd(), "VITE_");
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-  ],
-  //Alias útvonla: @-al kezdődően az src mappát tekintve abszolút hivatkozásokat használhatunk relatív helyett.
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  //Ebbe a mappába fordítsa a webalkalmaézást
-  //ilyenkor az apach szerver: www/proba mappába kell tenni
-  build: {
-    outDir: './dist/proba',
-  },
+  // 2. Visszatérés a konfigurációs objektummal
+  return {
+    plugins: [vue()],
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
 
-  //Ez egy belső környezeti változó, ami:
-  //npm run dev hatására: development
-  //npm run build hatására: production
-  //A base: mondja meg, hogy honnan idul a projekt
-  //developent módban: / -> src mappa
-  //product módban: a dist/proba mappa, vagy élesben a szerveren: www/proba (a lefordított alakalmazás)
-  base: process.env.NODE_ENV === 'development' ? '/' : '/proba/',
-})
+    //A fordítási mappa megadása
+    build: {
+      outDir: env.VITE_BUILD_DIR,
+      //Előtte takarítsa-e a mappát
+      emptyOutDir: false,
+    },
 
+    //Az alkalmazás mappaneve attól függően, hogy milyen módban vagyunk
+    base: mode === "development" ? "/" : env.VITE_WEB_DIR,
+  };
+});
 ```
 
 ## Az alkalmazás üzemmódjai
@@ -324,6 +322,7 @@ A VueJs alapban a CSR technológiát preferálja
   - `.env`: Minden módban betöltődik: itt adhatjuk meg az alkalmazásra vonatkozó általános dolgokat
   - `.env.development`t: dev módban töltődik be
   - `.env.production`: éles környezet ben töltődik be.
+  - `.env.github`: éles környezetben: github fordításnál töltődik be.
 - A .env fájlok rendszerváltozóinak névadási szabálya:  
   - A VITE_ előtag kötelező, csak ezek olvashatók be a kódból
   - A VITE_ előtaggal ellátott változók nyilvánosan elérhetők a böngészőben futó front-end kódban.
@@ -334,9 +333,16 @@ A VueJs alapban a CSR technológiát preferálja
 .env: Az alkalmazás címe, verziója stb.
 ```env
 VITE_APP_TITLE = Iskola webalkalmazás
-VITE_APP_VER = 3.7.2
+VITE_APP_VER = 1.0.0
+VITE_BUILD_DIR = C:/wamp64/www/proba
+VITE_WEB_DIR = /proba/
 ```
-
+.env.github: Az alkalmazás címe, verziója stb.
+```env
+VITE_BUILD_DIR = ../vuealapismeretekwww
+VITE_WEB_DIR = /vuealapismeretekwww/
+VITE_API_URL = http://xyz.com:8000/api
+```
 .env.development: Az API címe fejlesztői módban
 ```env
 VITE_API_URL = http://localhost:3000/api
@@ -345,11 +351,23 @@ VITE_API_URL = http://localhost:3000/api
 ```env
 VITE_API_URL = http://akarmi.com:3000/api
 ```
+
+### npm script: buildgithub
+```json
+"scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "buildgithub": "vite build --mode github",
+    "preview": "vite preview"
+  },
+```
+
 ### Környezeti változók elérése
 Nem kell beírni, hogy melyik .env fájlból akarjuk beolvasni
 ```js
 //.env-ből olvassa be
 const appTitle = import.meta.env.VITE_APP_TITLE;
+const appVer = import.meta.env.VITE_APP_VER;
 //.env.development, vagy .env.production-ból olvassa be
 const apiUrl = import.meta.env.VITE_API_URL;
 ```
