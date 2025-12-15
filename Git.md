@@ -56,10 +56,10 @@ git pull
 >>>>>>> branch-neve vagy a commit hash-e: A bejövő ág változtatása.
 ```
 - Négy fő lehetőség jelenik meg gombok formájában: Valamelyikre kattints
-    1. Accept **Current** Change: **Jelenlegi** Változás Elfogadása (a tied győz)
-    2. Accept **Incoming** Change: Bejövő Változás Elfogadása (a bejövő győz)
-    3. Accept Both Changes: Mindkét Változás Elfogadása (maradjon mind a kettő)
-    4. Compare Changes: Változások Összehasonlítása (egy külön nézetben mutatja a két változatot, hogy segítsen a döntésben)
+    - Accept **Current** Change: **Jelenlegi** Változás Elfogadása (a tied győz)
+    - Accept **Incoming** Change: Bejövő Változás Elfogadása (a bejövő győz)
+    - Accept Both Changes: Mindkét Változás Elfogadása (maradjon mind a kettő)
+    - Compare Changes: Változások Összehasonlítása (egy külön nézetben mutatja a két változatot, hogy segítsen a döntésben)
 - Kommitold a változást
 
 ## Kényszerített pull (fetch): 
