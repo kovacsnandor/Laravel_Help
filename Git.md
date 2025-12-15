@@ -66,7 +66,7 @@ git pull
 
 ## Kényszerített pull (fetch): 
 - Rá akarjuk húzni a távoli repót a munkánkra (mindent felülír)
-1. Lehúzzuk az összes válotzást, de ezt még nem hajtja végre (eredet lekérés)
+1. Lehúzzuk az összes változást, de ezt még nem hajtja végre (eredet lekérés) Szaggatott le nyíl
 ```console
 git fetch origin
 ```
