@@ -60,7 +60,9 @@ git pull
     - Accept **Incoming** Change: Bejövő Változás Elfogadása (a bejövő győz)
     - Accept Both Changes: Mindkét Változás Elfogadása (maradjon mind a kettő)
     - Compare Changes: Változások Összehasonlítása (egy külön nézetben mutatja a két változatot, hogy segítsen a döntésben)
-- Kommitold a változást
+- Nyomd meg a fájl mellett a + jelet: tedd fel a színpadra (stage)
+- Kommitold (rá fog kérdezni, hogy tényleg akarod-e)
+- Push
 
 ## Kényszerített pull (fetch): 
 - Rá akarjuk húzni a távoli repót a munkánkra (mindent felülír)
