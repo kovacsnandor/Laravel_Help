@@ -95,7 +95,9 @@ git merge <mergelendő ág>
 ```
 
 # Minden ág push
-Ha már vannak ágaink, ezzel minden ág felpusholódik
+- Ez akkor kell, ha csináltunk egy üres github repót és
+- A helyi repón vannak ágaink amiket mind fel akarunk tölteni
+- A sima push csak az aktuális ágat nyomja fel.
 ```console
 git push --all origin --set-upstream
 ```
