@@ -1,4 +1,4 @@
-# yClone
+# xClone
 1. Egy projekt klónozása
 ```console
 git clone <url>
