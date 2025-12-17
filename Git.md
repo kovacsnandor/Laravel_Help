@@ -104,6 +104,18 @@ git push origin --delete <ágnév>
 ```
 
 # Push
+- Az első push
+    - Githubon létrejön  a main ág
+    - Feltöltődik az összes commit
+    - -u: --set-upstream: beállítja, kiépíti a kapcsolatot main (helyi) - origin/main (távoli) main ágak között
+    - Ezt minden ágnál így kell csinálni
+```console
+git push -u origin main
+```
+- Többi push
+```console
+git push
+```
 ## Minden ág push
 - A sima push csak az aktuális ágat nyomja fel.
 - Ez akkor kell, ha csináltunk egy üres github repót és
