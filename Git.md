@@ -1,4 +1,4 @@
-# xClone
+# Clone
 1. Egy projekt klónozása
 ```console
 git clone <url>
@@ -6,7 +6,7 @@ git clone <url>
 
 # Kapcsolódás guthub repóhoz
 1. hozz létre egy teljesen üres repót a githubon
-2. Hozz létre egy helyi reót és kommitolj valamit
+2. Hozz létre egy helyi repót és kommitolj valamit
 3. Kapcsolódj a távoli repóhoz (az origin (származás) név hozzárendelése az url-hez)
 ```console
 git remote add origin <url>
@@ -18,13 +18,6 @@ git remote remove origin
 - A távoli repo url-jének lekérdezése (hova vagy kapcsolódva)
 ```console
 git remote -v
-```
-
-# Egy projekt minden ágának push-olása
-A push csak az aktuális ágat rakja fel.
-- Minden ág push
-```console
-git push -u origin --all
 ```
 
 # Konfiguráció
@@ -76,6 +69,14 @@ git reset --hard origin/<ág_neve>
 ```
 
 # Ág kezelés
+- Helyi ágak lekérdezése:
+```console
+git branch
+```
+- Helyi és az őt követő távoli ágak lekérdezése + utolsó commit:
+```console
+git branch -vv
+```
 - Ugrás a megadott ágra:
 ```console
 git checkout <ágnév>
@@ -84,7 +85,7 @@ git checkout <ágnév>
 ```console
 git branch -m <réginév> <újnév>
 ```
-- Merge
+- Merge: Mindíg azon az ágon legyél, amibe mergelni akarsz!!!
 1. Állj rá az ágra amibe mergelni akarsz
 ```console
 git checkout main
@@ -93,11 +94,20 @@ git checkout main
 ```console
 git merge <mergelendő ág>
 ```
+- Egy ág feltöltése a github-ra
+```console
+git push origin -u <ágnév>
+```
+- Egy ág törlése a github-ról
+```console
+git push origin --delete <ágnév>
+```
 
-# Minden ág push
+# Push
+## Minden ág push
+- A sima push csak az aktuális ágat nyomja fel.
 - Ez akkor kell, ha csináltunk egy üres github repót és
 - A helyi repón vannak ágaink amiket mind fel akarunk tölteni
-- A sima push csak az aktuális ágat nyomja fel.
 ```console
-git push --all origin --set-upstream
+git push -u origin --all
 ```
