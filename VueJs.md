@@ -484,3 +484,109 @@ import assetsLogoUrl from "@/assets/assets-logo.png";
 ```
 
 # Direktívák
+
+
+# Programozási stílusok
+- Composition API
+```js
+<script setup>
+
+</script>
+```
+
+- Options API
+```js
+<script>
+export default {
+  //..
+}
+</script>
+```
+
+
+## Az Options API logikai sorrendje
+A javasolt sorrend:
+
+1. name (kereséshez, debugoláshoz fontos)
+2. components
+3. props
+4. emits
+5. data
+6. computed
+7. watch
+8. lifecycle hooks (pl. created, mounted)
+9. methods
+
+# Projektstruktúra
+src/
+├── assets/             # Képek, globális CSS (pl. tailwind, scss)
+├── components/         # Kisebb, újrahasznosítható elemek (Gomb, Input, Kártya)
+│   ├── UserAvatar.vue
+│   └── BaseButton.vue
+├── stores/             # Pinia store-ok (globális állapot)
+│   └── userStore.js
+├── utils/              # Sima JS függvények (formázás, matek)
+│   └── dateHelper.js
+├── views/              # "Oldalak" (amik több komponenst fognak össze)
+│   ├── HomeView.vue
+│   └── LoginView.vue
+├── App.vue             # A fő keret (itt van a RouterView és a Navigáció)
+└── main.js             # Itt inicializálod a Vue-t és a Piniát
+
+1. Szétválasztás: A components mappában vannak a "buta" elemek, amik csak megjelenítenek. A views mappában vannak az "okos" oldalak, amik a Store-ral beszélgetnek.
+
+2. Kereshetőség: Ha egy adatot módosítani kell, tudod, hogy a stores-ban keresd. Ha egy gomb színét, akkor a components-ben.
+
+1. Mi kerüljön a Store-ba? (CRUD és üzleti logika)
+- Minden, ami adattal kapcsolatos, és nem csak a grafikus megjelenítésre tartozik:
+- API hívások: fetch, axios lekérések (Create, Read, Update, Delete).
+- Adatok tárolása: A lista, amit az API-tól kaptál.
+- Adat-manipuláció: Például egy elem törlése a listából vagy egy új hozzáadása.
+- Globális állapot: Ki van-e jelentkezve a felhasználó, mi van a kosárban, stb.
+
+2. Mi maradjon a View-ban? (UI logika)
+- Csak az, ami szorosan a felhasználói felülethez (User Interface) kötődik:
+- Űrlapok állapota: Amíg a felhasználó gépel egy inputba, az az adat nyugodtan maradhat a komponens data()-jában. Csak a Mentés gomb megnyomásakor küldjük el a Store-nak.
+- Modális ablakok/Lenyílók: Nyitva van-e egy ablak, vagy sem.
+- Validáció: Mielőtt elküldenéd az adatot a Store-nak, ellenőrizheted a komponensben, hogy ki van-e töltve minden mező.
+
+Dobozos felépítés:
+Doboz 1: UI logika (View)
+Doboz 2: Adat logika (Store)
+Doboz 3: Megjelenítés (Components)
+
+## .vue nevezéktan
+src/
+├── components/ <-- Mapába strukturáljuk
+│   ├── Base/
+│   │   ├── BaseInput.vue  <-- Az oldalon egyszer használt buta elemek
+│   │   └── BaseToast.vue
+│   ├── Table/
+│   │   ├── GenericTable.vue        <-- A "Szuper-táblázatunk"
+│   │   └── GenericTableHeader.vue
+│   ├── Todo/
+│   │   ├── TodoList.vue            <-- Szülő
+│   │   ├── TodoListItem.vue        <-- Gyerek (Szülő nevével kezdődik)
+│   │   └── TodoListItemButton.vue  <-- Gyerek gyereke
+│   └── Layout/
+│       ├── TheNavbar.vue           <-- Egypéldányos komponensek
+│       └── TheFooter.vue
+└── views/
+    ├── ProductView.vue <-- Weboldalak View utótag kötelező
+    ├── SportView.vue
+    └── HomeView.vue
+
+  # Computed
+  ## set-get computed
+  ```js
+computed: {
+    //Író olvasó computed
+    valamiBizgeto: {
+      get() {
+        return this.valami;
+      },
+      set(value) {
+        this.valami=value;
+      }
+    }
+  ```
