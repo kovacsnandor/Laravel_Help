@@ -454,7 +454,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 - src/`views`
   - Ide kerülnek az alkalmazás weboldalai
 
-
 ## public vs assets
 
 ├── public/
@@ -474,7 +473,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
   <img :src="assetsLogoUrl" />
 
   <h2>2. Kép a `public` mappából (Közvetlen elérési út)</h2>
-  <img src="/public-logo.png"/>
+  <img src="/public-logo.png" />
 </template>
 
 <script>
@@ -485,26 +484,27 @@ import assetsLogoUrl from "@/assets/assets-logo.png";
 
 # Direktívák
 
-
 # Programozási stílusok
-- Composition API
-```js
-<script setup>
 
-</script>
+- Composition API
+
+```js
+<script setup></script>
 ```
 
 - Options API
+
 ```js
 <script>
-export default {
-  //..
-}
+  export default{" "}
+  {
+    //..
+  }
 </script>
 ```
 
-
 ## Az Options API logikai sorrendje
+
 A javasolt sorrend:
 
 1. name (kereséshez, debugoláshoz fontos)
@@ -518,26 +518,28 @@ A javasolt sorrend:
 9. methods
 
 # Projektstruktúra
+
 src/
-├── assets/             # Képek, globális CSS (pl. tailwind, scss)
-├── components/         # Kisebb, újrahasznosítható elemek (Gomb, Input, Kártya)
-│   ├── UserAvatar.vue
-│   └── BaseButton.vue
-├── stores/             # Pinia store-ok (globális állapot)
-│   └── userStore.js
-├── utils/              # Sima JS függvények (formázás, matek)
-│   └── dateHelper.js
-├── views/              # "Oldalak" (amik több komponenst fognak össze)
-│   ├── HomeView.vue
-│   └── LoginView.vue
-├── App.vue             # A fő keret (itt van a RouterView és a Navigáció)
-└── main.js             # Itt inicializálod a Vue-t és a Piniát
+├── assets/ # Képek, globális CSS (pl. tailwind, scss)
+├── components/ # Kisebb, újrahasznosítható elemek (Gomb, Input, Kártya)
+│ ├── UserAvatar.vue
+│ └── BaseButton.vue
+├── stores/ # Pinia store-ok (globális állapot)
+│ └── userStore.js
+├── utils/ # Sima JS függvények (formázás, matek)
+│ └── dateHelper.js
+├── views/ # "Oldalak" (amik több komponenst fognak össze)
+│ ├── HomeView.vue
+│ └── LoginView.vue
+├── App.vue # A fő keret (itt van a RouterView és a Navigáció)
+└── main.js # Itt inicializálod a Vue-t és a Piniát
 
 1. Szétválasztás: A components mappában vannak a "buta" elemek, amik csak megjelenítenek. A views mappában vannak az "okos" oldalak, amik a Store-ral beszélgetnek.
 
 2. Kereshetőség: Ha egy adatot módosítani kell, tudod, hogy a stores-ban keresd. Ha egy gomb színét, akkor a components-ben.
 
-1. Mi kerüljön a Store-ba? (CRUD és üzleti logika)
+3. Mi kerüljön a Store-ba? (CRUD és üzleti logika)
+
 - Minden, ami adattal kapcsolatos, és nem csak a grafikus megjelenítésre tartozik:
 - API hívások: fetch, axios lekérések (Create, Read, Update, Delete).
 - Adatok tárolása: A lista, amit az API-tól kaptál.
@@ -545,6 +547,7 @@ src/
 - Globális állapot: Ki van-e jelentkezve a felhasználó, mi van a kosárban, stb.
 
 2. Mi maradjon a View-ban? (UI logika)
+
 - Csak az, ami szorosan a felhasználói felülethez (User Interface) kötődik:
 - Űrlapok állapota: Amíg a felhasználó gépel egy inputba, az az adat nyugodtan maradhat a komponens data()-jában. Csak a Mentés gomb megnyomásakor küldjük el a Store-nak.
 - Modális ablakok/Lenyílók: Nyitva van-e egy ablak, vagy sem.
@@ -556,37 +559,184 @@ Doboz 2: Adat logika (Store)
 Doboz 3: Megjelenítés (Components)
 
 ## .vue nevezéktan
+
 src/
 ├── components/ <-- Mapába strukturáljuk
-│   ├── Base/
-│   │   ├── BaseInput.vue  <-- Az oldalon egyszer használt buta elemek
-│   │   └── BaseToast.vue
-│   ├── Table/
-│   │   ├── GenericTable.vue        <-- A "Szuper-táblázatunk"
-│   │   └── GenericTableHeader.vue
-│   ├── Todo/
-│   │   ├── TodoList.vue            <-- Szülő
-│   │   ├── TodoListItem.vue        <-- Gyerek (Szülő nevével kezdődik)
-│   │   └── TodoListItemButton.vue  <-- Gyerek gyereke
-│   └── Layout/
-│       ├── TheNavbar.vue           <-- Egypéldányos komponensek
-│       └── TheFooter.vue
+│ ├── Base/
+│ │ ├── BaseInput.vue <-- Az oldalon egyszer használt buta elemek
+│ │ └── BaseToast.vue
+│ ├── Table/
+│ │ ├── GenericTable.vue <-- A "Szuper-táblázatunk"
+│ │ └── GenericTableHeader.vue
+│ ├── Todo/
+│ │ ├── TodoList.vue <-- Szülő
+│ │ ├── TodoListItem.vue <-- Gyerek (Szülő nevével kezdődik)
+│ │ └── TodoListItemButton.vue <-- Gyerek gyereke
+│ └── Layout/
+│ ├── TheNavbar.vue <-- Egypéldányos komponensek
+│ └── TheFooter.vue
 └── views/
-    ├── ProductView.vue <-- Weboldalak View utótag kötelező
-    ├── SportView.vue
-    └── HomeView.vue
+├── ProductView.vue <-- Weboldalak View utótag kötelező
+├── SportView.vue
+└── HomeView.vue
 
-  # Computed
-  ## set-get computed
-  ```js
+# Computed
+
+## set-get computed
+
+```js
 computed: {
-    //Író olvasó computed
-    valamiBizgeto: {
-      get() {
-        return this.valami;
-      },
-      set(value) {
-        this.valami=value;
-      }
+  //Író olvasó computed
+  valamiBizgeto: {
+    get() {
+      return this.valami;
+    },
+    set(value) {
+      this.valami=value;
     }
-  ```
+  }
+```
+
+# Űrlap validáció
+
+## css ismeret ismétlés
+[Kombinátorok](https://www.w3schools.com/css/css_combinators.asp)
+
+### Complex Selector-ok (összetett választók)
+
+Komplex akkor egy szelektor, ha nem egy van belőle
+példa:
+
+```css
+.was-validated .form-control:invalid ~ .invalid-feedback {
+  display: block;
+}
+```
+
+Kombinátorok: Ezek azok a "jelek", amik meghatározzák az elemek közötti hierarchikus kapcsolatot.
+
+- Származék kombinátor `.was-validated .form-control:invalid`
+  - Keresd a `.was-validated` osztályjelölőkkel ellátott elemeken belüli
+  - `.form-control:invalid` osztályjelölőket
+- Általános testvér kombinátor: ~ példa: `.was-validated .form-control:invalid ~ .invalid-feedback`
+  - Keresd az előbbiek alapján megtalált dobozban az összes `.invalid-feedback` elemeket ami ugyanebben a konténerben van.
+
+### Az álosztály fogalma
+[Álosztályok](https://www.w3schools.com/css/css_pseudo_classes.asp)
+
+Az álosztály lényege, hogy valamilyen esemény be és ki tud kapcsolni egy osztályt, mint egy lakat.
+
+- Például mi az a `:invalid`?
+  - A CSS-ben a kettősponttal kezdődő dolgok (mint a :hover vagy a :focus) állapotokat jelölnek.
+  - Ezek az ún. **álosztályok**.
+  - Az előttük lévő osztály valamilyen eseményre aktiválódik
+- Példák:
+  - :hover: Akkor aktiválódik, ha az egér felette van.
+  - :invalid: Akkor aktiválódik, ha a mező tartalma nem felel meg a szabályoknak (pl. üres, de required, vagy nem stimmel a pattern).
+
+
+## Validációs példa
+```html
+<form
+  @submit.prevent="handleSubmit"
+  :class="{ 'was-validated': validated }"
+  novalidate>
+
+  <!-- User név -->
+    <div class="mb-3">
+      <label for="userName" class="form-label">User neved:</label>
+      <input type="text" class="form-control" id="userName"
+      v-model="userName" required/>
+      <div class="invalid-feedback">A user név kötelező</div>
+    </div>
+
+  <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email címed:</label>
+      <input type="email" class="form-control"
+      id="email" v-model="email" required/>
+      <div class="invalid-feedback">
+        A email kötelező, vagy nem szabályos
+      </div>
+    </div>
+  
+  <button type="submit" class="btn btn-success">Regisztrálás</button>
+</form>
+```
+### novalidate, was-validated
+1. Az egész form-nál Tiltsd le a formok gyári html-es buboréküzenetes ellenőrzését, helyette én (bootstrap) akarom csinálni, saját hibaüzenetekkel
+
+2. was-validated osztály aktiválása
+- Ha bootstrap hibakezelést akarsz:
+- a `vasvalidate = true`-val tedd rá a formra a `was-validated` osztályjelölőt
+
+```html
+<form
+  @submit.prevent="handleSubmit"
+  :class="{ 'was-validated': validated }"
+  novalidate>
+  <!-- ... -->
+</form>   
+```
+
+### Bootstrap validációs css trükkje
+
+Bootstrap validáció esetén:
+- ha egy input mező nem felel meg a feltételeknek, 
+- pirossal kiíródik az alatta lévő `invalid-feedback` hibaüzenet
+
+```html
+<div class="mb-3">
+  <label for="userName" class="form-label">User neved:</label>
+  <input
+    type="text"
+    class="form-control"
+    id="userName"
+    v-model="userName"
+    required
+  />
+  <!-- Hibaüzenet -->
+  <div class="invalid-feedback">A user név kötelező</div>
+</div>
+```
+
+A validációs mechanizmus (trükk)
+A bootstrap css-ben ez található:
+```css
+/* Alapesetben a hibaüzenet rejtve van */
+.invalid-feedback {
+  display: none;
+}
+/* A .was-validated osztályú dobozon belül (form), 
+   jelöld ki az érvénytelen .form-control:invalid-okat (input), 
+   És keresd meg az alattuk lévő .invalid-feedback testvér dobozokat 
+   Ha ilyet találsz, jelenítsd meg őket (ezek a hibaüzenetek)
+   De csak egy dobozon belül
+*/
+.was-validated .form-control:invalid ~ .invalid-feedback {
+  display: block;
+}
+```
+
+.was-validated → .form-control:invalid → ~ → .invalid-feedback
+
+1. Alapesetben a hibaüzenetek nem látszanak: `.invalid-feedback { display: none; }`
+2. "Keresd meg a .was-validated osztályú dobozt (ez a form)." Ezen belül:
+3. "Nézd meg, van-e benne olyan beviteli mező (.form-control), ami éppen hibaállapotban van (:invalid)."
+4. "HA van ilyen, akkor keress egy olyan elemet, ami utána következik (~), és .invalid-feedback a neve."
+5. "Arra az elemre alkalmazd a display: block parancsot (vagyis mutasd meg)."
+
+### form.checkValidity(), input.setCustomValidity("Hibaüzenet")
+Ezek úgynevezett natív HTML5 (vagy JavaScript) függvények, amelyek minden modern böngészőben alapból benne vannak. Ez az úgynevezett Constraint Validation API.
+
+1. input.setCustomValidity("Hibaüzenet")
+- Ez a függvény arra való, hogy te, a programozó, "kézzel" megmondd a böngészőnek, ha valami baj van.
+- Ha egy nem üres szöveget adsz meg neki, a böngésző azonnal érvénytelennek (:invalid) jelöli meg a mezőt.
+- Ha egy üres szöveget ("") adsz meg, a böngésző azt mondja: "Oké, a hiba megszűnt", és a mező újra érvényes lesz (feltéve, hogy a többi szabálynak, pl. a required-nek megfelel).
+
+2. form.checkValidity()
+- Ez egy "gyorsjelentés" a böngészőtől.
+- Végigszalad az összes mezőn a formon belül.
+- Ha akár egyetlen mező is hibás (mert üres, vagy mert te a setCustomValidity-vel hibát adtál neki), akkor false értéket ad vissza.
+- Ha minden tökéletes, true lesz az eredmény.
+
