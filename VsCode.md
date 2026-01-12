@@ -1,3 +1,85 @@
+# VsCode download
+[VsCode download](https://code.visualstudio.com/download)
+
+# Ajánlott bővítmények
+## Editor
+- Auto Close Tag
+- Auto Rename Tag
+- change-case
+- Jupyter
+- Jupyter Cell Tags
+- Jupyter Keymap
+- Jupyter Notebook Renderers
+- Jupyter Slide Show
+
+## Laravel
+- Laravel Blade formatter
+- Laravel Blade Snippets
+- Laravel Extra Intellisence
+
+
+## Composer
+- Composer
+
+## Docker
+- Container Tools
+- Dev Containers
+- Docker
+- Docker DX
+- WSL
+
+## Formázó
+- ESLint
+- Prettier - Code formatter
+- SCSS Formatter
+
+## Pyton
+- isort
+- Pylance
+- Python
+- Python Debugger
+- Python Environments
+
+
+## Html megjelenítés
+- Live Server
+
+## Markdown
+- Markdown Preview Enhanced
+
+## Egyéb
+- Path Intellisence
+- Sass (.sass only)
+
+## PHP
+- PHP
+- PHP Debug
+- PHP Intelephense
+- PHP Profiler
+
+## API
+- REST Client
+
+## Adatbázis
+- SQLite Viewer
+
+## Vuejs
+- Vetur
+- Vue (Official)
+- Vue Extension Box
+
+## AI
+- Github Copilot
+- IntelliPHP - AI Autocomplete for PHP
+
+
+
+# VsCode önletörlés megszüntetése
+1. File/Preferences
+2. Keresés: update
+- [ ] Enable Windows Background Updates
+    - Ne legyen kipipálva
+
 # Gyorsbillentyűk
 ## 0. Vs Code Blokkok zárása nyitása
 [Nyitás-zárás stackoverflow](https://stackoverflow.com/questions/42660670/collapse-all-methods-in-visual-studio-code)
