@@ -72,6 +72,8 @@
 - Github Copilot
 - IntelliPHP - AI Autocomplete for PHP
 
+## Bővítmény magyarázatok (gemini)
+[A bővítményekről](https://gemini.google.com/share/a69cfeb8d5b7)
 
 
 # VsCode önletörlés megszüntetése
