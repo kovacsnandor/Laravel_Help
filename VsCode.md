@@ -96,3 +96,57 @@
 
 ## Vs kód gyorbillentyűk help
 -  `Ctrl - K S`
+
+# Fejlesztői környezet inítása
+1. A projekt gyökerében készíts egy `.vscode` mappát.
+2. Ebbe készíts egy tasks.json nevű fájlt
+
+├── .vscode
+│ └── tasks.json
+│ 
+├── client
+│ 
+└── server
+  
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🚀 INDÍTÁS",
+            "dependsOn": ["S-PHP", "S-BASH", "C-JS", "C-BASH"],
+            "group": { "kind": "build", "isDefault": true }
+        },
+        {
+            "label": "S-PHP",
+            "type": "shell",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" -c 'cd server && php artisan serve; exec bash'"
+        },
+        {
+            "label": "S-BASH",
+            "type": "shell",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" -c 'cd server; exec bash'"
+        },
+        {
+            "label": "C-JS",
+            "type": "shell",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" -c 'cd client && npm run dev; exec bash'"
+        },
+        {
+            "label": "C-BASH",
+            "type": "shell",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" -c 'cd client; exec bash'"
+        }
+    ]
+}
+```
+
+3. Indítás: Ctrl-Shift-B
+
+### A bash.exe helyének lekérdezése
+konzol ablakban:
+```console
+where bash
+```
+
