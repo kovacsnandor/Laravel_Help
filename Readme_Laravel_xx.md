@@ -225,6 +225,10 @@ php artisan make:policy UserPolicy --model=User
 ```console
 php artisan config:publish cors
 ```
+## ~ Lejárt tokenek törlése artisan paranccsal
+  ```console
+  php artisan sanctum:prune-expired --hours=0
+  ```
 
 # Laravel
 [Laravel](https://laravel.com/)
@@ -1369,7 +1373,9 @@ public function login(LoginUsersRequest $request)
   - Kényelem, Hosszú Munkamenet, Mobilalkalmazások, Dedikált Kliensek 30 naptól 1 évig
 
 - Lejárt tokenek törlése artisan paranccsal (A megadott óránál kisebblejáratúakat törli):
-  `php artisan sanctum:prune-expired --hours=0`
+  ```console
+  php artisan sanctum:prune-expired --hours=0
+  ```
 
 - Adott user törlése artisan paranccsal (Tinker):
   `php artisan tinker`
