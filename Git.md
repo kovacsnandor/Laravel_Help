@@ -137,3 +137,64 @@ git push
 ```console
 git push -u origin --all
 ```
+
+# .gitignore
+A .gitignore fájlban határzohatjuk meg, hogy mi ne legyen verziózva.
+## .gitignore hierarchia
+- A projekt bármely mappájába lehet .gitinore fájl.
+- A főkönyvtártól lefelé haladva az előbb lévő szabályok öröklődnek
+- Az almappába rakott .gitinore csak attól a mappától kezdve működik, a szülő felé nem.
+- Az almappában lévő .gitinore felülbírálhatja, módosíthatja a szülő .gitignore szabályait.
+
+## .gitignore szintaktika
+- config.json: Mindenhol ignorálja a config.json nevű fájlokat.
+- node_modules/: A teljes mappát és annak tartalmát ignorálja (a perjel fontos!).
+- node_modules: A teljes mappát és annak tartalmát ignorálja, valamint ha van ilyen nevű fájl, azt is.
+- /logs/debug.log: Csak a gyökérkönyvtárban lévő logs mappa tartalmát nézi, az almappákét nem.
+- *.log	Minden .log végű fájlt ignorál.
+- !important.log: Ha a *.log aktív, ez az egy fájl mégis követve lesz.
+- Kivétel létrehozás példa: Titunk egy mappa minden fájlját, de benne néhány dolgot megengedünk
+
+```.gitignore
+# 1. Tiltsd le a mappa tartalmát (de ne magát a mappát!)
+config/*
+
+# 2. Most már tehetsz kivételt a mappán belül
+!config/settings.json
+
+# 3. (Opcionális) Ha vannak almappák a config-on belül, 
+# azokat is engedned kell, hogy lássa a Git:
+!config/subfolder/
+```
+
+## Gitignore parancsok
+- már verziózva vannak, és utólag kerültek .gitignore-ba (.gitignor túlélők)
+    - -i (--ignored): Csak azokat mutasd, amik a .gitignore-ban szerepelnek.
+    - -c (--cached): Csak azokat a fájlokat nézd, amiket a Git már követ (vagyis benne vannak az indexben/tárolóban).
+    - --exclude-standard: Használd a projekt összes .gitignore fájlját az ellenőrzéshez.
+```console
+git ls-files -i -c --exclude-standard
+```
+
+- .gitignor túlélő kitakarítása
+1. Eltávolítás a követésből
+```console
+git rm --cached <fájlnév>
+```
+2. commitolni kell, majd push és kikerül a távoli repóból is
+
+- Mely fájlokat tilt a gitignore bárhola projektben (a gyökérből)
+
+```console
+git ls-files --others --ignored --exclude-standard
+```
+
+- Egy konkrét fájl ignorálásának felderítése az egész projektben (linux, bash)
+```console
+git ls-files -oi --exclude-standard | grep "<fájlnév>"
+```
+
+- .gitignor sor felderítése: melyik .gitignore fájlban és hol van letiltva a fájl
+```console
+git check-ignore -v <útvonal/fájlnév>
+```
