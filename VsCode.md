@@ -101,12 +101,12 @@
 1. A projekt gyökerében készíts egy `.vscode` mappát.
 2. Ebbe készíts egy tasks.json nevű fájlt
 
-├── .vscode
-│ └── tasks.json
-│ 
-├── client
-│ 
-└── server
+├── .vscode  
+│ └── tasks.json  
+│   
+├── client  
+│   
+└── server  
   
 
 ```json
