@@ -198,3 +198,10 @@ git ls-files -oi --exclude-standard | grep "<fájlnév>"
 ```console
 git check-ignore -v <útvonal/fájlnév>
 ```
+
+# Mappa letöltése github-ról
+[DownGit](https://minhaskamal.github.io/DownGit/#/home)
+- DownGit:
+    - Másold ki a böngésző címsorából a letölteni kívánt mappa teljes URL címét.
+    - Illeszd be a DownGit weboldalára.
+    - Kattints a Download gombra, és máris generál neked egy ZIP-et csak abból a mappából.
