@@ -1,0 +1,6 @@
+# VisulaStudio
+## Copilot kikapcsolása
+- Tools/Options
+    - Code Completions Providers (pipák kivesz)
+        - [ ] Copilot ... 
+        - [ ] IntelliCode ... 
