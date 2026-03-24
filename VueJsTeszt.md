@@ -11,6 +11,13 @@ npm run test:unit
 npx vitest run
 ```
 
+- Futtatás watch módban:
+```console
+npx vitest run
+```
+Ha módosítasz bármit a Store-ban vagy a tesztfájlban, a Vitest a másodperc tört része alatt újra futtatja a teszteket és kiírja az eredményt.
+
+
 - Grafikus eredmény flület
 ```console
 npx vitest --ui
@@ -20,12 +27,23 @@ npx vitest --ui
 ```console
 npx vitest useSportStore
 ```
-
-- HTML riport generálása:
+## ~ Teszt report generálás
+- HTML woeboldal riport generálása:
 ```console
 npx vitest --reporter=html
 ```
 Ez létrehoz egy html mappát a projektgyökérben, amit böngészőben megnyitva egy interaktív felületet kapsz az összes tesztről, futási időről és hibáról.
+
+- Generálás text fájlba:
+```console
+npx vitest run --reporter=verbose --no-color > vitest-results.txt
+```
+
+- Géppel olvasható XML (JUnit formátum)
+```console
+npx vitest run --reporter=default --reporter=junit --outputFile=vitest-results.xml
+```
+
 
 ## ~ Vitest lefedettség vizsgálat
 - Csomag telepítés
