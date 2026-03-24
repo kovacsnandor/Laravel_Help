@@ -172,5 +172,86 @@ describe('SportStore CRUD műveletek', () => {
 - Építőkövek: a vitest függvényei. Ezek segítségével használjuk a Vitest-et.
 - Az építőkövek importálása:
 ```js
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+```
 
+### describe – Tesztek csoportosítása
+A describe arra való, hogy logikai egységekbe rendezze a tesztjeidet. Nem hajt végre ellenőrzést, csak címkéz.
+
+```js
+describe('SportStore CRUD műveletek', () => {
+  beforeEach(() => {...});
+
+  // READ teszt
+  it('getAll - sikeresen lekéri a sportokat', async () => {...});
+
+  // CREATE teszt
+  it('create - új sportot ad hozzá és frissíti a listát', async () => {...});
+
+  // DELETE teszt speciális hibaágra (MySQL 1451)
+  it('delete - kezeli a kényszerfeltétel hibát (1451)', async () => {...});
+});
+```
+
+### it: Egy teszt függvény
+```js
+//...
+// READ teszt
+it('getAll - sikeresen lekéri a sportokat', async () => {
+  const store = useSportStore();
+  const mockSports = { data: [{ id: 1, sportNev: 'Kosárlabda' }] };
+  apiClient.get.mockResolvedValue(mockSports);
+
+  await store.getAll();
+
+  expect(apiClient.get).toHaveBeenCalledWith('/sports');
+  expect(store.items).toHaveLength(1);
+  expect(store.items[0].sportNev).toBe('Kosárlabda');
+});
+//...
+```
+
+### except: Elvárás megvalósítása
+Összehasonlítja a kapott eredményt az általad elvárt eredménnyel.
+```js
+//...
+expect(apiClient.get).toHaveBeenCalledWith('/sports');
+expect(store.items).toHaveLength(1);
+expect(store.items[0].sportNev).toBe('Kosárlabda');
+//...
+```
+
+### beforeEach – A "Takarító" (Előkészítés)
+Biztosítja a "tiszta lapot". Például minden teszt előtt alaphelyzetbe állítja a Store-t, hogy az előző teszt adatai ne zavarják össze a következőt.
+
+```js
+describe('SportStore CRUD műveletek', () => {
+  beforeEach(() => {
+      setActivePinia(createPinia()); // Minden teszt előtt tiszta Pinia kell
+      vi.clearAllMocks(); // Töröljük az előző teszt hívásait
+    });
+  //...
+});
+```
+
+### vi – A "Bűvész" (Utility objektum / Mockolás)
+Leggyakrabban mockolásra (helyettesítésre) használjuk. Segítségével létrehozhatsz "kém" függvényeket, amik figyelik, hányszor hívták meg őket, vagy teljesen lecserélhetsz velük külső fájlokat (mint az axiosClient).
+
+```js
+//...
+// 1. Az API kliens szimulálása (Mockolás)
+vi.mock('@/api/axiosClient', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    patch: vi.fn(),
+    delete: vi.fn(),
+    interceptors: {
+      request: { use: vi.fn() },
+      response: { use: vi.fn() }
+    }
+  }
+}));
+
+//...
 ```
