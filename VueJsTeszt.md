@@ -54,6 +54,8 @@ npm install -D @vitest/coverage-v8
 ```console
 npx vitest --coverage
 ```
+Keletkezik egy coverage mappa, amely statikus weboldalon meg lehet nézni, hogy mik maradtak ki.
+
 
 # Teszt eszközök
 ## Unit és Komponens tesztelés: **Vitest**
