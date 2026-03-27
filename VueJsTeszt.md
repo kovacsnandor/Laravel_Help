@@ -272,6 +272,97 @@ vi.mock('@/api/axiosClient', () => ({
     }
   }
 }));
-
 //...
 ```
+
+# Cypress (End-to-End) teszt
+## Telepítés
+- Cypress csomag telepítése a projektbe
+```console
+npm install cypress --save-dev
+```
+- Cypress program telepítése a windows-ra
+```console
+npx cypress install
+```
+
+## Indítás
+- Full indítás
+```console
+npx cypress open
+```
+
+- Melyik böngészővel induljon
+```console
+npx cypress open --browser electron
+```
+
+- Milyen teszttel és böngészővel
+```console
+npx cypress open --e2e --browser electron
+```
+
+
+- Ez létrehozza a szükséges mappaszerkezetet (cypress/ mappa) 
+- és konfigurációs fájlokat. 
+- Elindul a Cypress ablak
+  - Válaszd az **E2E Testing** opciót.
+  - Válaszd az Electron böngészőt
+
+## Cypress nyelvezet
+
+### should (Elvárás)
+```js
+//Kiszelektál egy elemet, majd vizsgál
+cy.get(szelektor) . should ( 'parancs (assertion)' , 'mi legyen az értéke' )
+
+//Példák
+//Valami látható-e a képernyőn
+cy.get('.invalid-feedback').should('be.visible')
+
+//Van-e ilyen osztálya a szelektált elemnek (pl. form)
+cy.get('form').should('have.class', 'was-validated')
+
+//A kiszelektált inputba ez van-e írva
+cy.get('#email').should('have.value', 'teszt@elek.hu')
+
+//A kiszelektált elem tartalmazza-e ezt a szót
+cy.get('.card-header').should('contain', 'Login')
+
+//Le van-e tiltva egy gomb
+cy.get('button').should('be.disabled')
+```
+
+### Láncolás
+A kiszelektált elemre több elvárást is összefűzhetünk az and-el
+```js
+cy.get('#email')
+  .should('be.visible')       // Legyen látható
+  .and('have.class', 'form-control') // Legyen rajta a form-control osztály
+  .and('have.value', '');     // Ne legyen beleírva semmi
+```
+
+### Beírás egy mezőbe (type)
+```js
+cy.get('#email').type('teszt@elek.hu');
+```
+
+### Katttintás (esemény kiváltás)
+```js
+cy.get('button[type="submit"]').click();
+```
+### Képernyőkép készítés
+- A tesztkódod bármelyik pontján kérhetsz egy pillanatképet a cy.screenshot() paranccsal
+- A projekt gyökerében létrejön egy cypress/screenshots mappa, benne a tesztfájlod nevével ellátott almappával és a .png fájllal.
+```js
+it('Bejelentkezés és screenshot', () => {
+  cy.visit('/login');
+  cy.get('#email').type('teszt@elek.hu');
+  
+  // Készítünk egy képet a kitöltött űrlapról
+  cy.screenshot('kitoltott-urlap'); 
+
+  cy.get('button[type="submit"]').click();
+});
+```
+
