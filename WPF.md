@@ -210,8 +210,8 @@ Példa: Fehérből pirosba:
 // intenzitas: 0 (fehér) és 255 (piros) közötti érték
 public SolidColorBrush GetRedIntensity(bytle intenzitas)
 {
-    byte gb = (byte)(255 - intenzitas);   
-    return new SolidColorBrush(Color.FromRgb(255, gb, gb));
+    byte x = (byte)(255 - intenzitas);   
+    return new SolidColorBrush(Color.FromRgb(255, x, x));
 }
 ```
 
