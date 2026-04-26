@@ -12,8 +12,9 @@
 
 ## CommunityToolkit.Mvvm
 2. Adatkötéshez talpíteni kell ezt a nuget csomagot:
-    - Menüben: `Tools/Nuget Package Manager/Manage nUget Packages for solution`
+    - Menüben: `Tools/Nuget Package Manager/Manage Nuget Packages for Solution`
     - Rákeresni: `CommunityToolkit.Mvvm`
+    - Kipipálni a projektet és Install
 
 ## Az objektum
 Példa: Person osztály
@@ -118,6 +119,9 @@ public partial class MainWindow : Window
 
 # Fontos objektumok
 ## Színezés
+- Mindig ecsettel (brush) színezünk: 
+    - SolidColorBrush: egyszínű ecset
+
 - Színnevekkel: Brushes statikus osztállyal.
 ```c#
 myButton.Background = Brushes.LightBlue;
@@ -187,7 +191,7 @@ using System.Windows;
 // ...
 
 string szinKod = "#FF5733";
-Clipboard.SetText(szinKod);
+System.Windows.Clipboard.SetDataObject(MyColorString, true);
 ```
 
 - String vágólapról
@@ -204,10 +208,10 @@ if (Clipboard.ContainsText())
 Példa: Fehérből pirosba:
 ```c#
 // intenzitas: 0 (fehér) és 255 (piros) közötti érték
-public Color GetRedIntensity(bytle intenzitas)
+public SolidColorBrush GetRedIntensity(bytle intenzitas)
 {
     byte gb = (byte)(255 - intenzitas);   
-    return Color.FromRgb(r, gb, gb);
+    return new SolidColorBrush(Color.FromRgb(255, gb, gb));
 }
 ```
 
@@ -216,14 +220,12 @@ public Color GetRedIntensity(bytle intenzitas)
     - t=2 s2
 
 ```c#
-public Color Lerp(Color s1, Color s2, double t)
+public SolidColorBrush Lerp(Color s1, Color s2, double t)
 {
     byte r = (byte)(s1.R + (s2.R - s1.R) * t);
     byte g = (byte)(s1.G + (s2.G - s1.G) * t);
     byte b = (byte)(s1.B + (s2.B - s1.B) * t);
-    return Color.FromRgb(r, g, b);
+    return new SolidColorBrush(Color.FromRgb(r, g, b));
 }
 
-// Használat (Fehértől Pirosig):
-Color halvany = Lerp(Colors.White, Colors.Red, 0.5); // 50%-os halványpiros
 ```
