@@ -115,3 +115,115 @@ public partial class MainWindow : Window
     }
 }
 ```
+
+# Fontos objektumok
+## Színezés
+- Színnevekkel: Brushes statikus osztállyal.
+```c#
+myButton.Background = Brushes.LightBlue;
+```
+
+- Szín (R,G,B) decimális kódokkal
+```c#
+// Szín létrehozása (R, G, B)
+Color egyediSzin = Color.FromRgb(255, 87, 51); 
+// Brush létrehozása a színből
+myButton.Background = new SolidColorBrush(egyediSzin);
+```
+
+- Szín és átlátszóság (A,R,G,B) decimális kódokkal
+```c#
+// Szín létrehozása (R, G, B)
+Color egyediSzin = Color.FromArgb(100, 255, 87, 51); 
+// Brush létrehozása a színből
+myButton.Background = new SolidColorBrush(egyediSzin);
+```
+
+- (Rh,Gh,Bh) helxa kódokkal
+```c#
+// Szín létrehozása (R, G, B)
+Color egyediSzin = Color.FromArgb(255, 0xFF, 0x57, 0x33); 
+// Brush létrehozása a színből
+myButton.Background = new SolidColorBrush(egyediSzin);
+```
+
+
+- Hexa kóddal
+```c#
+var color = (Color)ColorConverter.ConvertFromString("#FF5733");
+myButton.Background = new SolidColorBrush(color);
+```
+
+## Decimális <-> Hexa konverziók
+- Dec -> Hexa
+```c#
+byte r = 255;
+byte g = 87;
+byte b = 51;
+
+// "X2" = Hexadecimális, minimum 2 karakteren (vezető nullával)
+string hex = $"#{r:X2}{g:X2}{b:X2}";
+
+```
+
+- Hexa -> Dec
+```c#
+using System.Windows.Media;
+
+string hex = "#FF5733";
+Color color = (Color)ColorConverter.ConvertFromString(hex);
+
+byte r = color.R;
+byte g = color.G;
+byte b = color.B;
+```
+
+## sztring és vágólap
+
+- String vágólapra
+```c#
+using System.Windows;
+
+// ...
+
+string szinKod = "#FF5733";
+Clipboard.SetText(szinKod);
+```
+
+- String vágólapról
+```c#
+if (Clipboard.ContainsText())
+{
+    string vagoLapTartalom = Clipboard.GetText();
+    // Itt jöhet a korábban beszélt ColorConverter...
+}
+```
+
+## Színből színbe
+- Egy csatorna színintenzitás
+Példa: Fehérből pirosba:
+```c#
+// intenzitas: 0 (fehér) és 255 (piros) közötti érték
+public Color GetRedIntensity(bytle intenzitas)
+{
+    byte gb = (byte)(255 - intenzitas);   
+    return Color.FromRgb(r, gb, gb);
+}
+```
+
+- Tetszőleg színből színbe: intenzitás: t: 0-1 között
+    - t=0 s1
+    - t=2 s2
+
+```c#
+public Color Lerp(Color s1, Color s2, double t)
+{
+    byte r = (byte)(s1.R + (s2.R - s1.R) * t);
+    byte g = (byte)(s1.G + (s2.G - s1.G) * t);
+    byte b = (byte)(s1.B + (s2.B - s1.B) * t);
+    return Color.FromRgb(r, g, b);
+}
+
+// Használat (Fehértől Pirosig):
+Color halvany = Lerp(Colors.White, Colors.Red, 0.5); // 50%-os halványpiros
+```
